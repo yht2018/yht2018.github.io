@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  <meta name="description" content="yht&#39;s blog">
+  <meta name="keyword" content="Java">
+  
+    <link rel="shortcut icon" href="/css/images/logo.png">
+  
+  <title>
+    
+      java之word导出 | Hexo
+    
+  </title>
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <link href="//cdn.bootcss.com/nprogress/0.2.0/nprogress.min.css" rel="stylesheet">
+  <link href="//cdn.bootcss.com/highlight.js/9.12.0/styles/tomorrow.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/css/plugins/gitment.css">
+  <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+  <script src="//cdn.bootcss.com/geopattern/1.2.3/js/geopattern.min.js"></script>
+  <script src="//cdn.bootcss.com/nprogress/0.2.0/nprogress.min.js"></script>
+  <script src="/js/qrious.js"></script>
+<script src="/js/gitment.js"></script>
+</head>
+<div class="wechat-share">
+  <img src="/css/images/logo.png" />
+</div>
+
+  <body>
+    <header class="header fixed-header">
+  <div class="header-container">
+    <a class="home-link" href="/">
+      <div class="logo"></div>
+      <span>Hexo</span>
+    </a>
+    <ul class="right-list">
+      
+        <li class="list-item">
+          
+            <a href="/" class="item-link">Home</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/tags/" class="item-link">Tags</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/archives/" class="item-link">Archives</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/about/" class="item-link">About</a>
+          
+        </li>
+      
+    </ul>
+    <div class="menu">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </div>
+    <div class="menu-mask">
+      <ul class="menu-list">
+        
+          <li class="menu-item">
+            
+              <a href="/" class="menu-link">Home</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/tags/" class="menu-link">Tags</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/archives/" class="menu-link">Archives</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/about/" class="menu-link">About</a>
+            
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</header>
+
+    <div id="article-banner">
+  <h2>java之word导出</h2>
+  <p class="post-date">2018-02-25</p>
+  <div class="arrow-down">
+    <a href="javascript:;"></a>
+  </div>
+</div>
+<main class="app-body flex-box">
+  <!-- Article START -->
+  <article class="post-article">
+    <section class="markdown-content"><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a><strong>前言</strong></h2><p>最近项目中有一个需求，就是将数据库的部分数据导出为和模板类似的word文件,模板文件如下格式：<br><a id="more"></a></p>
+<p><img src="http://p37r4tmp8.bkt.clouddn.com/blog/180225/91KA89jKg4.png?imageslim" alt="">  </p>
+<p>数据库数据如下（只截取一段数据）：<br><img src="http://p37r4tmp8.bkt.clouddn.com/blog/180225/0kk3GbH35A.png?imageslim" alt=""></p>
+<p>我在此实现这个功能使用的是freemarker技术，在此我给大家详细讲解一下实现过程:  </p>
+<h2 id="实现过程"><a href="#实现过程" class="headerlink" title="实现过程"></a>实现过程</h2><p>1：首先导入jar包，如果是maven工程引入freemarker的依赖，如果非maven工程就添加jar包:<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">  &lt;groupId&gt;org.freemarker&lt;/groupId&gt;</span><br><span class="line">  &lt;artifactId&gt;freemarker&lt;/artifactId&gt;</span><br><span class="line">  &lt;version&gt;2.3.26-incubating&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure></p>
+<p>2：word模板的创建<br>（2.1）将模板的内容替换为特定的占位符：<br><img src="http://p37r4tmp8.bkt.clouddn.com/blog/180225/aE942H1GD8.png?imageslim" alt=""><br>（2.2）保存为xml格式：<br><img src="http://p37r4tmp8.bkt.clouddn.com/blog/180225/aK9GHdCHH2.png?imageslim" alt=""><br>（2.3）重新打开xml的文件，全选拿到<a href="http://tool.oschina.net/codeformat/xml格式化xml" target="_blank" rel="noopener">http://tool.oschina.net/codeformat/xml格式化xml</a><br> (2.4)格式化完成之后，将格式化后的xml内容替换到原xml文件中<br> (2.5)给xml文件适当位置添加freemarker标签,由于我的结果最终是个list集合，所以采用freemarker的list标签：<br> 找到<w:document> 元素下面的 <w:body> 元素，添加&lt;#list newspaperList as newspaper&gt; ， 并在</w:body>结束标签之前闭合 &lt;/#list&gt;， 此处的 newspaperList 为后台读取模板时需要需要渲染数据map集合的key， 其所对应的是一个list集合。<br><img src="http://p37r4tmp8.bkt.clouddn.com/blog/180225/3089f48794.png?imageslim" alt="mark"><br>(2.6)占位符也需要替换：<br><img src="http://p37r4tmp8.bkt.clouddn.com/blog/180225/f87mccBFFi.png?imageslim" alt="mark"><br>（2.7）修改完成之后，另存为.ftl文件，并且放到项目中去：<br><img src="http://p37r4tmp8.bkt.clouddn.com/blog/180225/g55f7k47aL.png?imageslim" alt="mark"></w:document></p>
+<p>3：具体实现代码<br>（3.1）将数据存储到map集合中，并且知道模板所在的位置，直接调用工具类的方法就可以实现导出,返回的是流：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> ByteArrayOutputStream <span class="title">exportNewspaper</span><span class="params">(String ids)</span> </span>&#123;</span><br><span class="line">		List&lt;Newspaper&gt; newspaperList = <span class="keyword">new</span> ArrayList&lt;Newspaper&gt;();</span><br><span class="line">		String[] idArr = ids.split(<span class="string">","</span>);</span><br><span class="line">		<span class="keyword">for</span>(String id : idArr)&#123;</span><br><span class="line">			<span class="keyword">if</span>(StringUtil.strIsNull(id))&#123;</span><br><span class="line">				<span class="keyword">break</span>;</span><br><span class="line">			&#125;</span><br><span class="line">			Newspaper newspaper = newspaperDao.findById(id);</span><br><span class="line">			<span class="comment">//处理一下内容,将内容中的特殊符号和段落进行格式化</span></span><br><span class="line">			newspaper.setContent(StringUtil.addW(newspaper.getContent()));</span><br><span class="line">			newspaperList.add(newspaper);</span><br><span class="line">		&#125;</span><br><span class="line">		Map&lt;String,Object&gt; resultMap = <span class="keyword">new</span> HashMap&lt;String,Object&gt;();</span><br><span class="line">		resultMap.put(<span class="string">"newspaperList"</span>, newspaperList); <span class="comment">//将所有的选中的结果集存储到map集合中去</span></span><br><span class="line">		String template = <span class="string">"/newspaper.ftl"</span>;   <span class="comment">//freemarker模板文件的地址</span></span><br><span class="line">		ByteArrayOutputStream outputStream = WordUtil.process(resultMap, template);  <span class="comment">//进行word模板导出</span></span><br><span class="line">		<span class="keyword">return</span> outputStream;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure></p>
+<p>（3.2）对于返回的流，我们调用下载的工具类进行下载即可:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RequestMapping</span>(<span class="string">"exportNewspaper"</span>)</span><br><span class="line"><span class="meta">@ResponseBody</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">exportNewspaper</span><span class="params">(HttpServletResponse response)</span> <span class="keyword">throws</span> Exception</span>&#123;</span><br><span class="line">	<span class="comment">//由于没有页面，我们测试拿数据库中的几个Id数据测试</span></span><br><span class="line">	String ids=<span class="string">"1762732_paper_1762732,1762733_paper_1762733,1762734_paper_1762734,1762735_paper_1762735"</span>;</span><br><span class="line">	ByteArrayOutputStream outputStream = newspaperService.exportNewspaper(ids);</span><br><span class="line">	<span class="comment">//形成的word的文件流下载</span></span><br><span class="line">	DownloadUtil.download(outputStream, response,DateUtil.format(<span class="keyword">new</span> Date(),<span class="string">"yyyy-MM-dd hh:mm:ss"</span>)+<span class="string">".doc"</span>);</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="文章涉及的工具类"><a href="#文章涉及的工具类" class="headerlink" title="文章涉及的工具类"></a>文章涉及的工具类</h2><p>1：word导出工具类：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.yht.util;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.BufferedWriter;</span><br><span class="line"><span class="keyword">import</span> java.io.ByteArrayOutputStream;</span><br><span class="line"><span class="keyword">import</span> java.io.OutputStreamWriter;</span><br><span class="line"><span class="keyword">import</span> java.io.Writer;</span><br><span class="line"><span class="keyword">import</span> java.util.Map;</span><br><span class="line"><span class="keyword">import</span> freemarker.template.Configuration;</span><br><span class="line"><span class="keyword">import</span> freemarker.template.Template;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">WordUtil</span> </span>&#123;</span><br><span class="line">	  <span class="keyword">private</span> <span class="keyword">static</span> Configuration configuration = <span class="keyword">null</span>;</span><br><span class="line">	  <span class="function"><span class="keyword">private</span> <span class="title">WordUtil</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	    <span class="keyword">throw</span> <span class="keyword">new</span> AssertionError();</span><br><span class="line">	  &#125;</span><br><span class="line">	  <span class="comment">/**</span></span><br><span class="line"><span class="comment">	   * 根据模板生成相应的文件</span></span><br><span class="line"><span class="comment">	   * <span class="doctag">@param</span> root 保存数据的map</span></span><br><span class="line"><span class="comment">	   * <span class="doctag">@param</span> template 模板文件的地址</span></span><br><span class="line"><span class="comment">	   * <span class="doctag">@param</span> path 生成的word文档输出地址</span></span><br><span class="line"><span class="comment">	   * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">	   */</span></span><br><span class="line">	  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">synchronized</span> ByteArrayOutputStream <span class="title">process</span><span class="params">(Map&lt;?, ?&gt; root, String template)</span> </span>&#123;</span><br><span class="line">	    <span class="keyword">if</span> (<span class="keyword">null</span> == root ) &#123;</span><br><span class="line">	      <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(<span class="string">"数据不能为空"</span>);</span><br><span class="line">	    &#125;</span><br><span class="line">	    </span><br><span class="line">	    <span class="keyword">if</span> (<span class="keyword">null</span> == template) &#123;</span><br><span class="line">	      <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(<span class="string">"模板文件不能为空"</span>);</span><br><span class="line">	    &#125;</span><br><span class="line">	    </span><br><span class="line">	    ByteArrayOutputStream outputStream = <span class="keyword">new</span> ByteArrayOutputStream();</span><br><span class="line">	    String templatePath = template.substring(<span class="number">0</span>, template.lastIndexOf(<span class="string">"/"</span>));</span><br><span class="line">	    String templateName = template.substring(template.lastIndexOf(<span class="string">"/"</span>) + <span class="number">1</span>, template.length());</span><br><span class="line">	    </span><br><span class="line">	    <span class="keyword">if</span> (<span class="keyword">null</span> == configuration) &#123;</span><br><span class="line">	      configuration = <span class="keyword">new</span> Configuration(Configuration.VERSION_2_3_23);  <span class="comment">// 这里Configurantion对象不能有两个，否则多线程访问会报错</span></span><br><span class="line">	      configuration.setDefaultEncoding(<span class="string">"utf-8"</span>);</span><br><span class="line">	      configuration.setClassicCompatible(<span class="keyword">true</span>);</span><br><span class="line">	    &#125;</span><br><span class="line">	    configuration.setClassForTemplateLoading(WordUtil.class, templatePath);</span><br><span class="line"></span><br><span class="line">	    Template t = <span class="keyword">null</span>;</span><br><span class="line">	    <span class="keyword">try</span> &#123;</span><br><span class="line">	      t = configuration.getTemplate(templateName);</span><br><span class="line">	      Writer w = <span class="keyword">new</span> BufferedWriter(<span class="keyword">new</span> OutputStreamWriter(outputStream, <span class="string">"utf-8"</span>));</span><br><span class="line">	      t.process(root, w);  <span class="comment">// 这里w是一个输出地址，可以输出到任何位置，如控制台，网页等</span></span><br><span class="line">	      w.close();</span><br><span class="line">	    &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">	      <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(e);</span><br><span class="line">	    &#125;</span><br><span class="line">	    <span class="keyword">return</span> outputStream;</span><br><span class="line">	  &#125;</span><br><span class="line">	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>2：下载工具类：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.yht.util;</span><br><span class="line"><span class="keyword">import</span> java.io.ByteArrayOutputStream;</span><br><span class="line"><span class="keyword">import</span> java.io.File;</span><br><span class="line"><span class="keyword">import</span> java.io.FileInputStream;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.io.OutputStream;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.ServletOutputStream;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletResponse;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DownloadUtil</span> </span>&#123;</span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param</span> file 要下载的文件</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param</span> returnName 返回的文件名</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param</span> response HttpServletResponse</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">prototypeDownload</span><span class="params">(File file,String returnName,HttpServletResponse response)</span></span>&#123;</span><br><span class="line">		<span class="comment">// 下载文件</span></span><br><span class="line">		FileInputStream inputStream = <span class="keyword">null</span>;</span><br><span class="line">		ServletOutputStream outputStream = <span class="keyword">null</span>;</span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line">			<span class="keyword">if</span>(!file.exists()) <span class="keyword">return</span>;</span><br><span class="line">			response.reset();</span><br><span class="line">			<span class="comment">//设置响应类型	PDF文件为"application/pdf"，WORD文件为："application/msword"， EXCEL文件为："application/vnd.ms-excel"。  </span></span><br><span class="line">			response.setContentType(<span class="string">"application/octet-stream;charset=utf-8"</span>);</span><br><span class="line"></span><br><span class="line">			<span class="comment">//设置响应的文件名称,并转换成中文编码</span></span><br><span class="line">			<span class="comment">//returnName = URLEncoder.encode(returnName,"UTF-8");</span></span><br><span class="line">			returnName = response.encodeURL(<span class="keyword">new</span> String(returnName.getBytes(),<span class="string">"iso8859-1"</span>));	<span class="comment">//保存的文件名,必须和页面编码一致,否则乱码</span></span><br><span class="line">			</span><br><span class="line">			<span class="comment">//attachment作为附件下载；inline客户端机器有安装匹配程序，则直接打开；注意改变配置，清除缓存，否则可能不能看到效果</span></span><br><span class="line">			response.addHeader(<span class="string">"Content-Disposition"</span>,   <span class="string">"attachment;filename="</span>+returnName);  </span><br><span class="line">			</span><br><span class="line">			<span class="comment">//将文件读入响应流</span></span><br><span class="line">			inputStream = <span class="keyword">new</span> FileInputStream(file);</span><br><span class="line">			outputStream = response.getOutputStream();</span><br><span class="line">			<span class="keyword">int</span> length = <span class="number">1024</span>;</span><br><span class="line">			<span class="keyword">int</span> readLength=<span class="number">0</span>;</span><br><span class="line">			<span class="keyword">byte</span> buf[] = <span class="keyword">new</span> <span class="keyword">byte</span>[<span class="number">1024</span>];</span><br><span class="line">			readLength = inputStream.read(buf, <span class="number">0</span>, length);</span><br><span class="line">			<span class="keyword">while</span> (readLength != -<span class="number">1</span>) &#123;</span><br><span class="line">				outputStream.write(buf, <span class="number">0</span>, readLength);</span><br><span class="line">				readLength = inputStream.read(buf, <span class="number">0</span>, length);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">			<span class="keyword">try</span> &#123;</span><br><span class="line">				outputStream.flush();</span><br><span class="line">			&#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">				e.printStackTrace();</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">try</span> &#123;</span><br><span class="line">				outputStream.close();</span><br><span class="line">			&#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">				e.printStackTrace();</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">try</span> &#123;</span><br><span class="line">				inputStream.close();</span><br><span class="line">			&#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">				e.printStackTrace();</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param</span> byteArrayOutputStream 将文件内容写入ByteArrayOutputStream</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param</span> response HttpServletResponse	写入response</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param</span> returnName 返回的文件名</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">download</span><span class="params">(ByteArrayOutputStream byteArrayOutputStream, HttpServletResponse response, String returnName)</span> <span class="keyword">throws</span> IOException</span>&#123;</span><br><span class="line">		response.setContentType(<span class="string">"application/msword"</span>);</span><br><span class="line">		response.setHeader(<span class="string">"Content-Disposition"</span>, <span class="string">"attachment; filename="</span> + returnName);</span><br><span class="line">		response.setContentLength(byteArrayOutputStream.size());</span><br><span class="line">		OutputStream outputstream = response.getOutputStream();	<span class="comment">//取得输出流</span></span><br><span class="line">		byteArrayOutputStream.writeTo(outputstream);					<span class="comment">//写到输出流</span></span><br><span class="line">		byteArrayOutputStream.close();									<span class="comment">//关闭</span></span><br><span class="line">		outputstream.flush();											<span class="comment">//刷数据</span></span><br><span class="line">		outputstream.close();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="运行访问"><a href="#运行访问" class="headerlink" title="运行访问:"></a>运行访问:</h2><p><a href="http://localhost:8080/WordByFreemarker/exportNewspaper" target="_blank" rel="noopener">http://localhost:8080/WordByFreemarker/exportNewspaper</a> 这个地址<br>直接会下载word文档，文档中的内容即是我们测试的那几个id的数据。</p>
+<h2 id="源码下载"><a href="#源码下载" class="headerlink" title="源码下载"></a>源码下载</h2><p><a href="http://p37r4tmp8.bkt.clouddn.com/WordByFreemarker.7z" target="_blank" rel="noopener">点我下载源码</a>  </p>
+</section>
+    <!-- Tags START -->
+    
+      <div class="tags">
+        <span>Tags:</span>
+        
+  <a href="/tags#java" >
+    <span class="tag-code">java</span>
+  </a>
+
+  <a href="/tags#freemarker" >
+    <span class="tag-code">freemarker</span>
+  </a>
+
+  <a href="/tags#word" >
+    <span class="tag-code">word</span>
+  </a>
+
+      </div>
+    
+    <!-- Tags END -->
+    <!-- 打赏 START -->
+    
+    <!-- 打赏 END -->
+    <!-- 二维码 START -->
+    
+    <!-- 二维码 END -->
+    
+      <!-- No Comment -->
+    
+  </article>
+  <!-- Article END -->
+  <!-- Catalog START -->
+  
+    <aside class="catalog-container">
+  <div class="toc-main">
+    <strong class="toc-title">Catalog</strong>
+    
+      <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#前言"><span class="toc-nav-text">前言</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#实现过程"><span class="toc-nav-text">实现过程</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#文章涉及的工具类"><span class="toc-nav-text">文章涉及的工具类</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#运行访问"><span class="toc-nav-text">运行访问:</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#源码下载"><span class="toc-nav-text">源码下载</span></a></li></ol>
+    
+  </div>
+</aside>
+  
+  <!-- Catalog END -->
+</main>
+
+<script>
+  (function () {
+    var url = 'http://yoursite.com/java之word导出.md/';
+    var banner = ''
+    if (banner !== '' && banner !== 'undefined' && banner !== 'null') {
+      $('#article-banner').css({
+        'background-image': 'url(' + banner + ')'
+      })
+    } else {
+      $('#article-banner').geopattern(url)
+    }
+    $('.header').removeClass('fixed-header')
+
+     // error image
+    $(".markdown-content img").on('error', function() {
+      $(this).attr('src', 'http://file.muyutech.com/error-img.png')
+      $(this).css({
+        'cursor': 'default'
+      })
+    })
+
+    // zoom image
+    $(".markdown-content img").on('click', function() {
+      var src = $(this).attr('src')
+      if (src !== 'http://file.muyutech.com/error-img.png') {
+        var imageW = $(this).width()
+        var imageH = $(this).height()
+        
+        var zoom = ($(window).width() * 0.95 / imageW).toFixed(2)
+        zoom = zoom < 1 ? 1 : zoom
+        zoom = zoom > 2 ? 2 : zoom
+        var transY = (($(window).height() - imageH) / 2).toFixed(2)
+
+        $('body').append('<div class="image-view-wrap"><div class="image-view-inner"><img src="'+ src +'" /></div></div>')
+        $('.image-view-wrap').addClass('wrap-active')
+        $('.image-view-wrap img').css({
+          'width': `${imageW}`,
+          'transform': `translate3d(0, ${transY}px, 0) scale3d(${zoom}, ${zoom}, 1)`
+        })
+        $('html').css('overflow', 'hidden')
+
+        $('.image-view-wrap').on('click', function() {
+          $(this).remove()
+          $('html').attr('style', '')
+        })
+      }
+    })
+
+    // qrcode
+    var qr = new QRious({
+      element: document.getElementById('share-qrcode'),
+      value: document.location.href
+    });
+
+    // gitment
+    var gitmentConfig = "yanm1ng";
+    if (gitmentConfig !== 'undefined') {
+      var gitment = new Gitment({
+        id: "java之word导出",
+        owner: "yanm1ng",
+        repo: "yanm1ng.github.io",
+        oauth: {
+          client_id: "0f87e490e00ee3fd87ef",
+          client_secret: "4a9d2b148e7971c2201ad12131ce8bf8159ccd2e"
+        },
+        theme: {
+          render(state, instance) {
+            const container = document.createElement('div')
+            container.lang = "en-US"
+            container.className = 'gitment-container gitment-root-container'
+            container.appendChild(instance.renderHeader(state, instance))
+            container.appendChild(instance.renderEditor(state, instance))
+            container.appendChild(instance.renderComments(state, instance))
+            container.appendChild(instance.renderFooter(state, instance))
+            return container;
+          }
+        }
+      })
+      gitment.render(document.getElementById('comments'))
+    }
+  })();
+</script>
+
+    <div class="scroll-top">
+  <span class="arrow-icon"></span>
+</div>
+    <footer class="app-footer">
+  <p class="copyright">
+    &copy; 2018 | Proudly powered by <a href="https://hexo.io" target="_blank">Hexo</a>
+    <br>
+    Theme by <a href="https://github.com/yanm1ng">yanm1ng</a>
+  </p>
+</footer>
+
+<script>
+  function async(u, c) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+</script>
+<script>
+  async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+    FastClick.attach(document.body);
+  })
+</script>
+
+<script>
+  var hasLine = 'true';
+  async("//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js", function(){
+    $('figure pre').each(function(i, block) {
+      var figure = $(this).parents('figure');
+      if (hasLine === 'false') {
+        figure.find('.gutter').hide();
+      }
+      var lang = figure.attr('class').split(' ')[1] || 'code';
+      var codeHtml = $(this).html();
+      var codeTag = document.createElement('code');
+      codeTag.className = lang;
+      codeTag.innerHTML = codeHtml;
+      $(this).attr('class', '').empty().html(codeTag);
+      figure.attr('data-lang', lang.toUpperCase());
+      hljs.highlightBlock(block);
+    });
+  })
+</script>
+<!-- Baidu Tongji -->
+
+<script src="/js/script.js"></script>
+  </body>
+</html>
