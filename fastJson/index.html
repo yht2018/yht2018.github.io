@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  <meta name="description" content="yht&#39;s blog">
+  <meta name="keyword" content="Java">
+  
+    <link rel="shortcut icon" href="/css/images/logo.png">
+  
+  <title>
+    
+      fastJson | Hexo
+    
+  </title>
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <link href="//cdn.bootcss.com/nprogress/0.2.0/nprogress.min.css" rel="stylesheet">
+  <link href="//cdn.bootcss.com/highlight.js/9.12.0/styles/tomorrow.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/css/plugins/gitment.css">
+  <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+  <script src="//cdn.bootcss.com/geopattern/1.2.3/js/geopattern.min.js"></script>
+  <script src="//cdn.bootcss.com/nprogress/0.2.0/nprogress.min.js"></script>
+  <script src="/js/qrious.js"></script>
+<script src="/js/gitment.js"></script>
+</head>
+<div class="wechat-share">
+  <img src="/css/images/logo.png" />
+</div>
+
+  <body>
+    <header class="header fixed-header">
+  <div class="header-container">
+    <a class="home-link" href="/">
+      <div class="logo"></div>
+      <span>Hexo</span>
+    </a>
+    <ul class="right-list">
+      
+        <li class="list-item">
+          
+            <a href="/" class="item-link">Home</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/tags/" class="item-link">Tags</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/archives/" class="item-link">Archives</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/about/" class="item-link">About</a>
+          
+        </li>
+      
+    </ul>
+    <div class="menu">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </div>
+    <div class="menu-mask">
+      <ul class="menu-list">
+        
+          <li class="menu-item">
+            
+              <a href="/" class="menu-link">Home</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/tags/" class="menu-link">Tags</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/archives/" class="menu-link">Archives</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/about/" class="menu-link">About</a>
+            
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</header>
+
+    <div id="article-banner">
+  <h2>fastJson</h2>
+  <p class="post-date">2018-03-04</p>
+  <div class="arrow-down">
+    <a href="javascript:;"></a>
+  </div>
+</div>
+<main class="app-body flex-box">
+  <!-- Article START -->
+  <article class="post-article">
+    <section class="markdown-content"><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>最近项目中使用到了fastJson解析json，于是我就学习了一下fastJson,总结了一下<br><a id="more"></a></p>
+<h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>Fastjson是一个Java语言编写的高性能功能完善的JSON库。它采用一种“假定有序快速匹配”的算法，把JSON Parse的性能提升到极致，是目前Java语言中最快的JSON库。Fastjson接口简单易用，已经被广泛使用在缓存序列化、协议交互、Web输出、Android客户端等多种应用场景。 </p>
+<h2 id="json和对象的转换"><a href="#json和对象的转换" class="headerlink" title="json和对象的转换"></a>json和对象的转换</h2><p>1：引入jar包  </p>
+<p>使用maven工具的时候需要加入fastJson的依赖即可：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;com.alibaba&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;fastjson&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;VERSION_CODE&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure></p>
+<p>2：对象转换为json<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">ObjectToJsonTest</span><span class="params">()</span></span>&#123;</span><br><span class="line">	Group group = <span class="keyword">new</span> Group();</span><br><span class="line">	group.setId(<span class="number">1</span>);</span><br><span class="line">	group.setGroupName(<span class="string">"测试组"</span>);</span><br><span class="line">	</span><br><span class="line">	User user1 = <span class="keyword">new</span> User();</span><br><span class="line">	user1.setId(<span class="number">0</span>);</span><br><span class="line">	user1.setName(<span class="string">"大大"</span>);</span><br><span class="line">	</span><br><span class="line">	User user2 = <span class="keyword">new</span> User();</span><br><span class="line">	user2.setId(<span class="number">1</span>);</span><br><span class="line">	user2.setName(<span class="string">"鱼儿"</span>);</span><br><span class="line">	</span><br><span class="line">	List&lt;User&gt; userList = <span class="keyword">new</span> ArrayList&lt;User&gt;();</span><br><span class="line">	userList.add(user1);</span><br><span class="line">	userList.add(user2);</span><br><span class="line">	group.setUsers(userList);</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//将group对象的数据转换为json数据(序列化)</span></span><br><span class="line">	String jsonString = JSON.toJSONString(group);</span><br><span class="line">	<span class="comment">//在fastjson中默认是不输空值的，若想输出，可这样</span></span><br><span class="line">	String jsonString1 = JSON.toJSONString(group,SerializerFeature.WriteMapNullValue);</span><br><span class="line">	System.out.println(jsonString);</span><br><span class="line">	System.out.println(jsonString1);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>输出：</p>
+<p><img src="http://p37r4tmp8.bkt.clouddn.com/blog/180304/C7GAm0lkkl.png?imageslim" alt=""></p>
+<p>3：json转换为对象<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">JsonToObject</span><span class="params">()</span></span>&#123;</span><br><span class="line">	String json = <span class="string">"&#123;\"id\":1,\"groupName\":\"测试组\",\"users\":[&#123;\"id\":1,\"name\":\"鱼儿\"&#125;,&#123;\"id\":2,\"name\":\"大大\"&#125;]&#125;"</span>;</span><br><span class="line">	Group group = JSON.parseObject(json,Group.class);</span><br><span class="line">	System.out.println(group);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>输出：</p>
+<p><img src="http://p37r4tmp8.bkt.clouddn.com/blog/180304/gFEe9Gih5A.png?imageslim" alt="k"></p>
+<p>4:处理时间<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">JsonDate</span><span class="params">()</span></span>&#123;</span><br><span class="line">	String jsonDate = JSON.toJSONStringWithDateFormat(<span class="keyword">new</span> Date(),<span class="string">"yyyy-MM-dd hh:mm:ss"</span>);</span><br><span class="line">	System.out.println(jsonDate);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="集合和json转换"><a href="#集合和json转换" class="headerlink" title="集合和json转换"></a>集合和json转换</h2><p>1：map集合转换为json<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">MapToJson</span><span class="params">()</span></span>&#123;</span><br><span class="line">	Map map = <span class="keyword">new</span> HashMap();</span><br><span class="line">	map.put(<span class="string">"key1"</span>,<span class="number">123</span>);</span><br><span class="line">	map.put(<span class="string">"key2"</span>, <span class="string">"臭臭"</span>);</span><br><span class="line">	User user = <span class="keyword">new</span> User();</span><br><span class="line">	user.setId(<span class="number">1314</span>);</span><br><span class="line">	user.setName(<span class="string">"小小"</span>);</span><br><span class="line">	map.put(<span class="string">"key3"</span>,user);</span><br><span class="line">	JSONObject jsonObject = <span class="keyword">new</span> JSONObject(map);</span><br><span class="line">	String jsonString = JSON.toJSONString(jsonObject);</span><br><span class="line">	System.out.println(jsonString);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>输出：<br><img src="http://p37r4tmp8.bkt.clouddn.com/blog/180304/eh9G7jj9aA.png?imageslim" alt="mark"></p>
+<p>2:json转换为map集合<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">JsonToMap</span><span class="params">()</span></span>&#123;</span><br><span class="line">	String jsonStr = <span class="string">"&#123;\"key3\":&#123;\"id\":1314,\"name\":\"小小\"&#125;,\"key2\":\"臭臭\",\"key1\":123&#125;"</span>;</span><br><span class="line">	HashMap map  = JSON.parseObject(jsonStr,HashMap.class);</span><br><span class="line">	System.out.println(map);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>输出：<br><img src="http://p37r4tmp8.bkt.clouddn.com/blog/180304/5lg34Hl3BG.png?imageslim" alt="mark"></p>
+<p>3:list集合转换为json<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">ListToJson</span><span class="params">()</span></span>&#123;</span><br><span class="line">	List list = <span class="keyword">new</span> ArrayList();</span><br><span class="line">	list.add(<span class="string">"baby"</span>);</span><br><span class="line">	list.add(<span class="string">"chouchou"</span>);</span><br><span class="line">	String jsonString = JSONObject.toJSONString(list);</span><br><span class="line">	System.out.println(jsonString);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>输出：<br><img src="http://p37r4tmp8.bkt.clouddn.com/blog/180304/DmkAjl1Alf.png?imageslim" alt="mark"> </p>
+<p>4:json转换为list集合<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">JsonToList</span><span class="params">()</span></span>&#123;</span><br><span class="line">	String jsonStr=<span class="string">"[\"baby\",\"chouchou\"]"</span>;</span><br><span class="line">	List&lt;String&gt; list = JSONArray.parseObject(jsonStr,List.class);</span><br><span class="line">	System.out.println(list);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>输出：<br><img src="http://p37r4tmp8.bkt.clouddn.com/blog/180304/BKmLbF3II5.png?imageslim" alt="mark"></p>
+<h2 id="综合案例"><a href="#综合案例" class="headerlink" title="综合案例"></a>综合案例</h2><p>1：下面给出一串Json，在控制台打印出所有的值<br><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="attr">"rule"</span>:&#123;<span class="attr">"bookRule"</span>:<span class="string">"https://www.aszw.org/book/\\d+/\\d+/"</span>,<span class="attr">"bookXpath"</span>:<span class="string">"//*/a/@href"</span>,<span class="attr">"chapterXpath"</span>:<span class="string">"//*[@id='at']/tbody/tr/td/a/@href"</span>,<span class="attr">"chapterRule"</span>:<span class="string">"\\d+.html"</span>,<span class="attr">"bookIdRule"</span>:<span class="string">"/\\d+/(\\d+).*"</span>,<span class="attr">"bookInfoRule"</span>:[&#123;<span class="attr">"name"</span>:<span class="string">"name"</span>,<span class="attr">"reg"</span>:<span class="string">""</span>,<span class="attr">"value"</span>:<span class="string">"//*/div[@class='btitle']/h1/text()"</span>&#125;,&#123;<span class="attr">"name"</span>:<span class="string">"intro"</span>,<span class="attr">"reg"</span>:<span class="string">""</span>,<span class="attr">"value"</span>:<span class="string">"//*[@id='a_main']/div[2]/dl/div/div[1]/div[1]/div[2]/div[2]/text()"</span>&#125;,&#123;<span class="attr">"name"</span>:<span class="string">"author"</span>,<span class="attr">"reg"</span>:<span class="string">""</span>,<span class="attr">"value"</span>:<span class="string">"//*/div[@class='btitle']/i[1]/text()"</span>&#125;,&#123;<span class="attr">"name"</span>:<span class="string">"icon"</span>,<span class="attr">"reg"</span>:<span class="string">""</span>,<span class="attr">"value"</span>:<span class="string">"//*[@id='a_main']/div[2]/dl/div/div[1]/div[1]/div[1]/img/@src"</span>&#125;],<span class="attr">"chapterContentRule"</span>:[&#123;<span class="attr">"name"</span>:<span class="string">"name"</span>,<span class="attr">"reg"</span>:<span class="string">""</span>,<span class="attr">"value"</span>:<span class="string">"//*[@id='amain']/div[3]/h1/text()"</span>&#125;,&#123;<span class="attr">"name"</span>:<span class="string">"content"</span>,<span class="attr">"reg"</span>:<span class="string">""</span>,<span class="attr">"value"</span>:<span class="string">"//*[@id='contents']/text()"</span>&#125;]&#125;&#125;</span><br></pre></td></tr></table></figure></p>
+<p>(1)：分析过程：<br>将此串json放到 <a href="https://www.json.cn/" target="_blank" rel="noopener">JSON格式化</a>网站去格式化:</p>
+<p><img src="http://p37r4tmp8.bkt.clouddn.com/blog/180304/E2i386h4mB.png?imageslim" alt="mark"><br>    在fastJson中，无非是jsonObject和jsonArray两种对象，此时它本身是一个Object，解析的时候我们使用JSONObject.parseObject()方法解析这个对象，打开这个Object：<br><img src="http://p37r4tmp8.bkt.clouddn.com/blog/180304/Kil6I8b5Gc.png?imageslim" alt="mark"><br>这是一个map，key为rule的，value的类型还是JsonObject类型的,所以使用getJSONObject(“rule”)方法，下面我们再打开这个map的value：<br><img src="http://p37r4tmp8.bkt.clouddn.com/blog/180304/A1iICmgJHH.png?imageslim" alt="mark"><br>发现此jsonObject对象中有数组，首先对于bookRule这类，由于他的value是String类型的，我们直接通过getString(“bookRule”)获取值，其他的同理；<br>但是对于数组，bookInfoRule，由于value的值是数组，我们需要通过getJSONArray(“bookInfoRule”)获取数组;<br><img src="http://p37r4tmp8.bkt.clouddn.com/blog/180304/k4GCB9EK1C.png?imageslim" alt="mark"><br><img src="http://p37r4tmp8.bkt.clouddn.com/blog/180304/Ac8D1iiHiH.png?imageslim" alt="mark"><br>想获得数组对象的属性的值，我们需要遍历数组，由于此数组中的对象都是JSONObject类型的，所以我们需要在遍历数组的时候将对象强转为JSONObject类型，强转完成之后直接通过getString(“key”)就可以获取属性的值。由于这里的属性的值都是String类型的，如果是其他的int类型或者其他类型，就使用其他的方法。 </p>
+<p>(2)：代码实现：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testJson</span><span class="params">()</span></span>&#123;</span><br><span class="line">	String jsonStr = <span class="string">"&#123;\"rule\":&#123;\"bookRule\":\"https://www.aszw.org/book/\\\\d+/\\\\d+/\",\"bookXpath\":\"//*/a/@href\",\"chapterXpath\":\"//*[@id='at']/tbody/tr/td/a/@href\",\"chapterRule\":\"\\\\d+.html\",\"bookIdRule\":\"/\\\\d+/(\\\\d+).*\",\"bookInfoRule\":[&#123;\"name\":\"name\",\"reg\":\"\",\"value\":\"//*/div[@class='btitle']/h1/text()\"&#125;,&#123;\"name\":\"intro\",\"reg\":\"\",\"value\":\"//*[@id='a_main']/div[2]/dl/div/div[1]/div[1]/div[2]/div[2]/text()\"&#125;,&#123;\"name\":\"author\",\"reg\":\"\",\"value\":\"//*/div[@class='btitle']/i[1]/text()\"&#125;,&#123;\"name\":\"icon\",\"reg\":\"\",\"value\":\"//*[@id='a_main']/div[2]/dl/div/div[1]/div[1]/div[1]/img/@src\"&#125;],\"chapterContentRule\":[&#123;\"name\":\"name\",\"reg\":\"\",\"value\":\"//*[@id='amain']/div[3]/h1/text()\"&#125;,&#123;\"name\":\"content\",\"reg\":\"\",\"value\":\"//*[@id='contents']/text()\"&#125;]&#125;&#125;"</span>;</span><br><span class="line">	JSONObject jsonObject = JSONObject.parseObject(jsonStr);</span><br><span class="line">	<span class="comment">//JSONObject object = jsonObject.getObject("rule",JSONObject.class);</span></span><br><span class="line">	JSONObject ruleJson = jsonObject.getJSONObject(<span class="string">"rule"</span>);</span><br><span class="line">	String bookRule = ruleJson.getString(<span class="string">"bookRule"</span>);</span><br><span class="line">	String bookXpath = ruleJson.getString(<span class="string">"bookXpath"</span>);</span><br><span class="line">	String chapterXpath = ruleJson.getString(<span class="string">"chapterXpath"</span>);</span><br><span class="line">	String chapterRule = ruleJson.getString(<span class="string">"chapterRule"</span>);</span><br><span class="line">	String bookIdRule = ruleJson.getString(<span class="string">"bookIdRule"</span>);</span><br><span class="line">	JSONArray jsonArray = ruleJson.getJSONArray(<span class="string">"bookInfoRule"</span>);</span><br><span class="line">	<span class="keyword">for</span> (Object array : jsonArray) &#123;</span><br><span class="line">		JSONObject arrayJson = (JSONObject) array;</span><br><span class="line">		String name = arrayJson.getString(<span class="string">"name"</span>);</span><br><span class="line">		String reg = arrayJson.getString(<span class="string">"reg"</span>);</span><br><span class="line">		String value = arrayJson.getString(<span class="string">"value"</span>);</span><br><span class="line">		System.out.println(name);</span><br><span class="line">		System.out.println(reg);</span><br><span class="line">		System.out.println(value);</span><br><span class="line">	&#125;</span><br><span class="line">	System.out.println(bookRule);</span><br><span class="line">	System.out.println(bookXpath);</span><br><span class="line">	System.out.println(chapterXpath);</span><br><span class="line">	System.out.println(chapterRule);</span><br><span class="line">	System.out.println(bookIdRule);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>运行结果：<br><img src="http://p37r4tmp8.bkt.clouddn.com/blog/180304/FDKFh2FbIF.png?imageslim" alt="mark"></p>
+<p>2：对于上面的这串json，我们将他转换为对象,并且使用toJSONString()的方法测试转换的对象是否正确：<br>代码实现：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">JsonToObject1</span><span class="params">()</span></span>&#123;</span><br><span class="line">	Map map = <span class="keyword">new</span> HashMap();</span><br><span class="line">	Rule rule = <span class="keyword">new</span> Rule();</span><br><span class="line">	rule.setBookRule(<span class="string">"https://www.aszw.org/book//"</span>);</span><br><span class="line">	rule.setBookXpath(<span class="string">"//*/a/@href"</span>);</span><br><span class="line">	rule.setChapterXpath(<span class="string">"//*[@id='at']/tbody/tr/td/a/@href"</span>);</span><br><span class="line">	rule.setChapterRule(<span class="string">"d+.html"</span>);</span><br><span class="line">	rule.setBookIdRule(<span class="string">"/d+/(d+).*"</span>);</span><br><span class="line">	</span><br><span class="line">	BookInfo bookInfo = <span class="keyword">new</span> BookInfo();</span><br><span class="line">	bookInfo.setName(<span class="string">"name"</span>);</span><br><span class="line">	bookInfo.setReg(<span class="string">""</span>);</span><br><span class="line">	bookInfo.setValue(<span class="string">"//*/div[@class='btitle']/h1/text()"</span>);</span><br><span class="line">	</span><br><span class="line">	BookInfo bookInfo1 = <span class="keyword">new</span> BookInfo();</span><br><span class="line">	bookInfo1.setName(<span class="string">"intro"</span>);</span><br><span class="line">	bookInfo1.setReg(<span class="string">""</span>);</span><br><span class="line">	bookInfo1.setValue(<span class="string">"//*[@id='a_main']/div[2]/dl/div/div[1]/div[1]/div[2]/div[2]/text()"</span>);</span><br><span class="line">	</span><br><span class="line">	BookInfo bookInfo2 = <span class="keyword">new</span> BookInfo();</span><br><span class="line">	bookInfo2.setName(<span class="string">"author"</span>);</span><br><span class="line">	bookInfo2.setReg(<span class="string">""</span>);</span><br><span class="line">	bookInfo2.setValue(<span class="string">"//*/div[@class='btitle']/i[1]/text()"</span>);</span><br><span class="line">	</span><br><span class="line">	BookInfo bookInfo3 = <span class="keyword">new</span> BookInfo();</span><br><span class="line">	bookInfo3.setName(<span class="string">"icon"</span>);</span><br><span class="line">	bookInfo3.setReg(<span class="string">""</span>);</span><br><span class="line">	bookInfo3.setValue(<span class="string">"//*[@id='a_main']/div[2]/dl/div/div[1]/div[1]/div[1]/img/@src"</span>);</span><br><span class="line">	</span><br><span class="line">	List&lt;BookInfo&gt; bookInfoRuleList = <span class="keyword">new</span> ArrayList&lt;BookInfo&gt;();</span><br><span class="line">	bookInfoRuleList.add(bookInfo);</span><br><span class="line">	bookInfoRuleList.add(bookInfo1);</span><br><span class="line">	bookInfoRuleList.add(bookInfo2);</span><br><span class="line">	bookInfoRuleList.add(bookInfo3);</span><br><span class="line">	rule.setBookInfoRuleList(bookInfoRuleList);</span><br><span class="line">	</span><br><span class="line">	</span><br><span class="line">	BookInfo bookInfo4 = <span class="keyword">new</span> BookInfo();</span><br><span class="line">	bookInfo4.setName(<span class="string">"name"</span>);</span><br><span class="line">	bookInfo4.setReg(<span class="string">""</span>);</span><br><span class="line">	bookInfo4.setValue(<span class="string">"//*[@id='amain']/div[3]/h1/text()"</span>);</span><br><span class="line">	</span><br><span class="line">	BookInfo bookInfo5 = <span class="keyword">new</span> BookInfo();</span><br><span class="line">	bookInfo5.setName(<span class="string">"content"</span>);</span><br><span class="line">	bookInfo5.setReg(<span class="string">""</span>);</span><br><span class="line">	bookInfo5.setValue(<span class="string">"//*[@id='contents']/text()"</span>);</span><br><span class="line">	</span><br><span class="line">	List&lt;BookInfo&gt; chapterContentRuleList = <span class="keyword">new</span> ArrayList&lt;BookInfo&gt;();</span><br><span class="line">	chapterContentRuleList.add(bookInfo4);</span><br><span class="line">	chapterContentRuleList.add(bookInfo5);</span><br><span class="line">	rule.setChapterContentRuleList(chapterContentRuleList);</span><br><span class="line">	</span><br><span class="line">	map.put(<span class="string">"rule"</span>,rule);</span><br><span class="line">	</span><br><span class="line">	String jsonString = JSON.toJSONString(map);</span><br><span class="line">	System.out.println(jsonString);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>因为此输出和上面的json是一样的，所以就不给输出的内容了。<br>将此输出拿到json.cn上格式化，发现结构和上面的json结构一样，转换的对象是正确的。</p>
+</section>
+    <!-- Tags START -->
+    
+      <div class="tags">
+        <span>Tags:</span>
+        
+  <a href="/tags#java" >
+    <span class="tag-code">java</span>
+  </a>
+
+  <a href="/tags#fastJson" >
+    <span class="tag-code">fastJson</span>
+  </a>
+
+      </div>
+    
+    <!-- Tags END -->
+    <!-- 打赏 START -->
+    
+    <!-- 打赏 END -->
+    <!-- 二维码 START -->
+    
+    <!-- 二维码 END -->
+    
+      <!-- No Comment -->
+    
+  </article>
+  <!-- Article END -->
+  <!-- Catalog START -->
+  
+    <aside class="catalog-container">
+  <div class="toc-main">
+    <strong class="toc-title">Catalog</strong>
+    
+      <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#前言"><span class="toc-nav-text">前言</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#介绍"><span class="toc-nav-text">介绍</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#json和对象的转换"><span class="toc-nav-text">json和对象的转换</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#集合和json转换"><span class="toc-nav-text">集合和json转换</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#综合案例"><span class="toc-nav-text">综合案例</span></a></li></ol>
+    
+  </div>
+</aside>
+  
+  <!-- Catalog END -->
+</main>
+
+<script>
+  (function () {
+    var url = 'http://yoursite.com/fastJson/';
+    var banner = ''
+    if (banner !== '' && banner !== 'undefined' && banner !== 'null') {
+      $('#article-banner').css({
+        'background-image': 'url(' + banner + ')'
+      })
+    } else {
+      $('#article-banner').geopattern(url)
+    }
+    $('.header').removeClass('fixed-header')
+
+     // error image
+    $(".markdown-content img").on('error', function() {
+      $(this).attr('src', 'http://file.muyutech.com/error-img.png')
+      $(this).css({
+        'cursor': 'default'
+      })
+    })
+
+    // zoom image
+    $(".markdown-content img").on('click', function() {
+      var src = $(this).attr('src')
+      if (src !== 'http://file.muyutech.com/error-img.png') {
+        var imageW = $(this).width()
+        var imageH = $(this).height()
+        
+        var zoom = ($(window).width() * 0.95 / imageW).toFixed(2)
+        zoom = zoom < 1 ? 1 : zoom
+        zoom = zoom > 2 ? 2 : zoom
+        var transY = (($(window).height() - imageH) / 2).toFixed(2)
+
+        $('body').append('<div class="image-view-wrap"><div class="image-view-inner"><img src="'+ src +'" /></div></div>')
+        $('.image-view-wrap').addClass('wrap-active')
+        $('.image-view-wrap img').css({
+          'width': `${imageW}`,
+          'transform': `translate3d(0, ${transY}px, 0) scale3d(${zoom}, ${zoom}, 1)`
+        })
+        $('html').css('overflow', 'hidden')
+
+        $('.image-view-wrap').on('click', function() {
+          $(this).remove()
+          $('html').attr('style', '')
+        })
+      }
+    })
+
+    // qrcode
+    var qr = new QRious({
+      element: document.getElementById('share-qrcode'),
+      value: document.location.href
+    });
+
+    // gitment
+    var gitmentConfig = "yanm1ng";
+    if (gitmentConfig !== 'undefined') {
+      var gitment = new Gitment({
+        id: "fastJson",
+        owner: "yanm1ng",
+        repo: "yanm1ng.github.io",
+        oauth: {
+          client_id: "0f87e490e00ee3fd87ef",
+          client_secret: "4a9d2b148e7971c2201ad12131ce8bf8159ccd2e"
+        },
+        theme: {
+          render(state, instance) {
+            const container = document.createElement('div')
+            container.lang = "en-US"
+            container.className = 'gitment-container gitment-root-container'
+            container.appendChild(instance.renderHeader(state, instance))
+            container.appendChild(instance.renderEditor(state, instance))
+            container.appendChild(instance.renderComments(state, instance))
+            container.appendChild(instance.renderFooter(state, instance))
+            return container;
+          }
+        }
+      })
+      gitment.render(document.getElementById('comments'))
+    }
+  })();
+</script>
+
+    <div class="scroll-top">
+  <span class="arrow-icon"></span>
+</div>
+    <footer class="app-footer">
+  <p class="copyright">
+    &copy; 2018 | Proudly powered by <a href="https://hexo.io" target="_blank">Hexo</a>
+    <br>
+    Theme by <a href="https://github.com/yanm1ng">yanm1ng</a>
+  </p>
+</footer>
+
+<script>
+  function async(u, c) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+</script>
+<script>
+  async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+    FastClick.attach(document.body);
+  })
+</script>
+
+<script>
+  var hasLine = 'true';
+  async("//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js", function(){
+    $('figure pre').each(function(i, block) {
+      var figure = $(this).parents('figure');
+      if (hasLine === 'false') {
+        figure.find('.gutter').hide();
+      }
+      var lang = figure.attr('class').split(' ')[1] || 'code';
+      var codeHtml = $(this).html();
+      var codeTag = document.createElement('code');
+      codeTag.className = lang;
+      codeTag.innerHTML = codeHtml;
+      $(this).attr('class', '').empty().html(codeTag);
+      figure.attr('data-lang', lang.toUpperCase());
+      hljs.highlightBlock(block);
+    });
+  })
+</script>
+<!-- Baidu Tongji -->
+
+<script src="/js/script.js"></script>
+  </body>
+</html>
