@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  <meta name="description" content="yht&#39;s blog">
+  <meta name="keyword" content="Java">
+  
+    <link rel="shortcut icon" href="/css/images/logo.png">
+  
+  <title>
+    
+      Spring 学习篇---IOC | Hexo
+    
+  </title>
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <link href="//cdn.bootcss.com/nprogress/0.2.0/nprogress.min.css" rel="stylesheet">
+  <link href="//cdn.bootcss.com/highlight.js/9.12.0/styles/tomorrow.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/css/plugins/gitment.css">
+  <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+  <script src="//cdn.bootcss.com/geopattern/1.2.3/js/geopattern.min.js"></script>
+  <script src="//cdn.bootcss.com/nprogress/0.2.0/nprogress.min.js"></script>
+  <script src="/js/qrious.js"></script>
+<script src="/js/gitment.js"></script>
+</head>
+<div class="wechat-share">
+  <img src="/css/images/logo.png" />
+</div>
+
+  <body>
+    <header class="header fixed-header">
+  <div class="header-container">
+    <a class="home-link" href="/">
+      <div class="logo"></div>
+      <span>Hexo</span>
+    </a>
+    <ul class="right-list">
+      
+        <li class="list-item">
+          
+            <a href="/" class="item-link">Home</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/tags/" class="item-link">Tags</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/archives/" class="item-link">Archives</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/about/" class="item-link">About</a>
+          
+        </li>
+      
+    </ul>
+    <div class="menu">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </div>
+    <div class="menu-mask">
+      <ul class="menu-list">
+        
+          <li class="menu-item">
+            
+              <a href="/" class="menu-link">Home</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/tags/" class="menu-link">Tags</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/archives/" class="menu-link">Archives</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/about/" class="menu-link">About</a>
+            
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</header>
+
+    <div id="article-banner">
+  <h2>Spring 学习篇---IOC</h2>
+  <p class="post-date">2018-04-20</p>
+  <div class="arrow-down">
+    <a href="javascript:;"></a>
+  </div>
+</div>
+<main class="app-body flex-box">
+  <!-- Article START -->
+  <article class="post-article">
+    <section class="markdown-content"><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>最近公司的一个新项目刚完事，趁着几天休息时间准备学习点东西，想学点新技术，其实自己还有很多东西只是停留在应用上，其实对于其他方面都不了解，于是就框架着手，整体的学习一下Spring，了解spring这个框架更多的内容，本篇先详细介绍Spring的IOC，它也是Spring的核心。</p>
+<h2 id="Spring介绍"><a href="#Spring介绍" class="headerlink" title="Spring介绍"></a>Spring介绍</h2><p>Spring是一个开源的轻量级开发应用框架，<br>Spring是一个主要解决了对象依赖问题及现有技术的整合问题，同时彻底解决了事务方面的问题。<br>学习spring，主要是学习IOC,DI,AOP,声明式事务。</p>
+<h2 id="Spring工作原理"><a href="#Spring工作原理" class="headerlink" title="Spring工作原理"></a>Spring工作原理</h2><p>所以Spring的工作原理是工厂加解析加反射原理：<br><img src="http://p37r4tmp8.bkt.clouddn.com/blog/180430/b5Hlb30gDb.png?imageslim" alt="mark"><br>（1）工厂指的是使用了Spring之后对象全部都是从工厂中获取的了，而且工厂中创建的对象是单例的，不管是哪个人需要使用这个工厂中的对象，就直接去工厂中拿即可，就不会像之前一样每次谁调用这个对象就要new一次这个对象，这样new了很多次。所以有了工厂之后所有的对象只会创建一次，不会创建多次了，这也是单例的特点。<br>（2）解析指的是使用dom4j解析Spring的配置文件，获得一些配置信息。<br>（3）反射指的是我们可以根据解析过后获取的class通过反射来获取到我们需要使用的对象。<br>但是注意这些过程，路德，约瀚森这个人已经给我们做好了，在Spring已经写好了，他就是Spring之父。</p>
+<h5 id="大致过程："><a href="#大致过程：" class="headerlink" title="大致过程："></a>大致过程：</h5><p>（1） 创建Spring的配置文件<br>（2）编写配置文件（加入一些对象的配置信息）<br>（3）Spring本身就一个大工厂(内部可以认为是一个工厂设计模式来实现)，再配合xml解析+反射技术，就可以根据用户的配置信息，生成相应的对象<br>原先我们是需要读取解析配置文件的（一般使用dom4j），然后反射，生成对象，这些工作之前我们是需要做的，但是现在不需要了，Spring已经给我们做好了，所以我们现在就直接获取工厂对象，然后获得我们需要的对象即可。<br>（4）提供一个getBean()方法，供用户直接从工厂中获取相应对象<br>（5）再直接操作从工厂中获取的对象</p>
+<h5 id="spring架构图"><a href="#spring架构图" class="headerlink" title="spring架构图:"></a>spring架构图:</h5><p><img src="http://p37r4tmp8.bkt.clouddn.com/blog/180430/2Fi0Jjk70I.png?imageslim" alt="mark"><br>由上图发现Spring的核心包括Beans，Core,Context,Spel，所以使Spring需要导入核心jar包，由核心层往上四个是spring的特性包，比如切面编程aspects等，再上面左边是数据连接有关的，spring可以与mybatis或者hibernate等dao层的技术进行整合，右边是web，spring可以与web层的技术进行整合，比如springMvc等等。</p>
+<h2 id="IOC介绍"><a href="#IOC介绍" class="headerlink" title="IOC介绍"></a>IOC介绍</h2><p>Inverse of Control 控制反转<br>就是将早期咱们直接通过(new)来创建对象的控制权，交给工厂（spring容器）来完成，相当于工厂得到了对象的创建权，而程序代码不再直接创建对象，而是从工厂中获取对象。<br>IoC就相当于一个容器，可以实例化程序中的对象，在Spring中BeanFactory工厂就是是IoC容器的实际代表者。<br>它一般是通过读取配置文件中的配置数据，这里的配置文件就是xml文件，然后再对各个对象进行实例化。</p>
+<h2 id="spring-开发之Hello-World"><a href="#spring-开发之Hello-World" class="headerlink" title="spring 开发之Hello World"></a>spring 开发之Hello World</h2><h5 id="接口"><a href="#接口" class="headerlink" title="接口"></a>接口</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">HelloApi</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">sayHello</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="接口实现"><a href="#接口实现" class="headerlink" title="接口实现"></a>接口实现</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HelloApiImpl</span> <span class="keyword">implements</span> <span class="title">HelloApi</span></span>&#123;</span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">sayHello</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		System.out.print(<span class="string">"hello world"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="xml配置"><a href="#xml配置" class="headerlink" title="xml配置"></a>xml配置</h5><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span><br><span class="line"><span class="tag">&lt;<span class="name">beans</span></span></span><br><span class="line"><span class="tag"><span class="attr">xmlns</span>=<span class="string">"http://www.springframework.org/schema/beans"</span></span></span><br><span class="line"><span class="tag"><span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span></span></span><br><span class="line"><span class="tag"><span class="attr">xmlns:context</span>=<span class="string">"http://www.springframework.org/schema/context"</span></span></span><br><span class="line"><span class="tag"><span class="attr">xsi:schemaLocation</span>=<span class="string">"</span></span></span><br><span class="line"><span class="tag"><span class="string">http://www.springframework.org/schema/beans	      http://www.springframework.org/schema/beans/spring-beans-3.0.xsd</span></span></span><br><span class="line"><span class="tag"><span class="string">http://www.springframework.org/schema/context		   http://www.springframework.org/schema/context/spring-context-3.0.xsd"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">	<span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"hello"</span> <span class="attr">class</span>=<span class="string">"cn.springs.yht.chapter1.HelloApiImpl"</span>&gt;</span> <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line">	</span><br><span class="line"><span class="tag">&lt;/<span class="name">beans</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h5 id="获取IOC容器"><a href="#获取IOC容器" class="headerlink" title="获取IOC容器"></a>获取IOC容器</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HelloApiTest</span> </span>&#123;</span><br><span class="line">	<span class="meta">@Test</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Test01</span><span class="params">()</span></span>&#123;</span><br><span class="line">		<span class="comment">//读取配置文件实例化一个IOC容器</span></span><br><span class="line">		ApplicationContext context = <span class="keyword">new</span> ClassPathXmlApplicationContext(<span class="string">"helloWorld.xml"</span>);</span><br><span class="line">		<span class="comment">//从容器中获取到bean</span></span><br><span class="line">		HelloApi helloApi = context.getBean(<span class="string">"hello"</span>,HelloApi.class);</span><br><span class="line">		<span class="comment">//执行业务逻辑</span></span><br><span class="line">		helloApi.sayHello();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="Spring-IOC-实例化容器的几种方式-获得工厂的几种方式"><a href="#Spring-IOC-实例化容器的几种方式-获得工厂的几种方式" class="headerlink" title="Spring IOC 实例化容器的几种方式(获得工厂的几种方式)"></a>Spring IOC 实例化容器的几种方式(获得工厂的几种方式)</h2><p>Spring IOC 实例化容器的几种方式即为spring获得工厂的几种方式，Spring IOC实例化容器其实就是获得Spring工厂，即spring中的beanFactory,因为我们只有先获得spring的工厂才能获得工厂中的各种对象，因为使用spring之后，所有的对象都在工厂中。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*BeanFactory提供了IoC容器最基本功能，而 ApplicationContext 则增加了更多支持企业级功能支持。</span></span><br><span class="line"><span class="comment"> *  ApplicationContext完全继承BeanFactory，因而BeanFactory所具有的语义也适用于ApplicationContext。</span></span><br><span class="line"><span class="comment"> *  下面讲解容器实现的四种方式</span></span><br><span class="line"><span class="comment"> * </span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">IOCContainerDescription</span> </span>&#123;</span><br><span class="line"></span><br><span class="line"><span class="comment">//使用XmlBeanFactory实现，从classPath下获取资源</span></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">xmlBeanFactoryByCPTest</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="comment">//1.准备配置文件，从当前类加载路径中获取配置文件</span></span><br><span class="line">	Resource resource = <span class="keyword">new</span> ClassPathResource(<span class="string">"helloWorld.xml"</span>);</span><br><span class="line">	<span class="comment">//2.初始化容器</span></span><br><span class="line">	BeanFactory beanFactory = <span class="keyword">new</span> XmlBeanFactory(resource);</span><br><span class="line">	<span class="comment">//3.从容器中获取bean</span></span><br><span class="line">	HelloApi helloApi = beanFactory.getBean(<span class="string">"hello"</span>,HelloApi.class);</span><br><span class="line">	<span class="comment">//4.执行业务逻辑</span></span><br><span class="line">	helloApi.sayHello1();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//使用XmlBeanFactory实现，从文件系统获取资源</span></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">xmlBeanFactoryByFSTest</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="comment">//1.准备配置文件，从文件系统获取配置文件，默认是相对路径，可以指定绝对路径</span></span><br><span class="line">	File file = <span class="keyword">new</span> File(<span class="string">"FileSystemConfig.xml"</span>);</span><br><span class="line">	Resource resource = <span class="keyword">new</span> FileSystemResource(file);</span><br><span class="line">	<span class="comment">//2.初始化容器</span></span><br><span class="line">	BeanFactory beanFactory = <span class="keyword">new</span> XmlBeanFactory(resource);</span><br><span class="line">	<span class="comment">//3.从容器中获取bean</span></span><br><span class="line">	HelloApi bean = beanFactory.getBean(<span class="string">"hello"</span>,HelloApi.class);</span><br><span class="line">	<span class="comment">//4.执行业务逻辑</span></span><br><span class="line">	bean.sayHello2();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//使用ApplicationContext中的ClassPathXmlApplicationContext实现，从classpath下面获取资源</span></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">classPathXmlApplicationContextTest</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="comment">//1.准备配置文件，从当前类加载路径中获取配置文件</span></span><br><span class="line">    <span class="comment">//2.初始化容器</span></span><br><span class="line">	BeanFactory beanFactory = <span class="keyword">new</span> ClassPathXmlApplicationContext(<span class="string">"helloWorld.xml"</span>);</span><br><span class="line">	HelloApi bean = beanFactory.getBean(<span class="string">"hello"</span>, HelloApi.class);</span><br><span class="line">	bean.sayHello3();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//使用ApplicationContext中的FileSystemXmlApplicationContext实现，从文件系统中获取资源</span></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">FileApplicationContextTest</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="comment">//1.准备配置文件，从文件系统获取配置文件，默认是相对路径，可以指定绝对路径</span></span><br><span class="line">    <span class="comment">//2.初始化容器</span></span><br><span class="line">	<span class="comment">/*BeanFactory beanFactory =  new FileSystemXmlApplicationContext("FileSystemConfig.xml");</span></span><br><span class="line"><span class="comment">	HelloApi bean = beanFactory.getBean("hello",HelloApi.class);</span></span><br><span class="line"><span class="comment">	bean.sayHello4();*/</span></span><br><span class="line">	<span class="comment">/*也可以返回ApplicationContext,最好建议就是new的是ApplicationContext的子类就返回ApplicationContext对象,</span></span><br><span class="line"><span class="comment">	 * 如果new 的容器是BeanFactory接口的子类，那么就返回BeanFactory接口即可。</span></span><br><span class="line"><span class="comment">	 * */</span></span><br><span class="line">	ApplicationContext context = <span class="keyword">new</span> FileSystemXmlApplicationContext(<span class="string">"FileSystemConfig.xml"</span>);</span><br><span class="line">	HelloApi bean = context.getBean(<span class="string">"hello"</span>,HelloApi.class);</span><br><span class="line">	bean.sayHello();</span><br><span class="line">&#125;	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="源码下载"><a href="#源码下载" class="headerlink" title="源码下载"></a>源码下载</h2><p><a href="https://pan.baidu.com/s/17xF-qYhfC8uinPEWAM9Ndw" target="_blank" rel="noopener">点我下载</a></p>
+<h2 id="实例化Bean"><a href="#实例化Bean" class="headerlink" title="实例化Bean"></a>实例化Bean</h2><h5 id="为bean指定Id的几种方式"><a href="#为bean指定Id的几种方式" class="headerlink" title="为bean指定Id的几种方式"></a>为bean指定Id的几种方式</h5><p>Spring IoC容器目的就是管理Bean，这些Bean将根据配置文件中的Bean定义进行创建，在配置文件中由<bean>标签来定义bean,每个Bean可以有一个或多个id（或称之为标识符或名字），在这里我们把第一个id称为“标识符”，其余id叫做“别名”；这些id在IoC容器中必须唯一。那么为bean指定id有几种方式：<br>第一种是不指定id，直接配置全限定类名；第二种就是指定一个唯一的id，这一般是通用的方法;第三种是指定一个name，这个name也是唯一的；第四种是指定一个id和一个name，此处的id是唯一的，name相当于别名；第五种是指定多个name，多个name用“，”、“；”、“ ”分割，也是第一个作为标识符，其他都是别名；第六种是使用<alias>标签指定别名，别名也必须在IoC容器中唯一；这里就不写例子了，知道这几种方式即可。</alias></bean></p>
+<h5 id="实例化bean的四种方式-Spring创建对象的四种方式"><a href="#实例化bean的四种方式-Spring创建对象的四种方式" class="headerlink" title="实例化bean的四种方式(Spring创建对象的四种方式)"></a>实例化bean的四种方式(Spring创建对象的四种方式)</h5><h6 id="1：无参构造"><a href="#1：无参构造" class="headerlink" title="1：无参构造"></a>1：无参构造</h6><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HelloApiImpl</span> <span class="keyword">implements</span> <span class="title">HelloApi</span></span>&#123;</span><br><span class="line">	<span class="keyword">private</span> String message;</span><br><span class="line">	<span class="comment">//无参构造方法</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">HelloApiImpl</span><span class="params">()</span></span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.message = <span class="string">"测试无参如何实例化bean"</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">sayHello</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		System.out.println(message);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>xml配置：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--无参构造方法实例化bean--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"noParam"</span> <span class="attr">class</span>=<span class="string">"cn.yht.spring.beanInstance.HelloApiImpl"</span>&gt;</span><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>测试方法:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testNoParam</span><span class="params">()</span></span>&#123;</span><br><span class="line">	ApplicationContext ac = <span class="keyword">new</span> ClassPathXmlApplicationContext(<span class="string">"noParam.xml"</span>);</span><br><span class="line">	HelloApi bean = ac.getBean(<span class="string">"noParam"</span>,HelloApi.class);</span><br><span class="line">	bean.sayHello();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>测试结果：<br><img src="http://p37r4tmp8.bkt.clouddn.com/blog/180430/eGjEAEC545.png?imageslim" alt="mark"></p>
+<h6 id="2：有参构造"><a href="#2：有参构造" class="headerlink" title="2：有参构造"></a>2：有参构造</h6><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HelloApiImpl</span> <span class="keyword">implements</span> <span class="title">HelloApi</span></span>&#123;</span><br><span class="line">	<span class="keyword">private</span> String message;</span><br><span class="line">	<span class="comment">//有参构造方法</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">HelloApiImpl</span><span class="params">(String message)</span></span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.message = message;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">sayHello</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		System.out.println(message);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>xml配置：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--有参构造方法实例化bean--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"haveParam"</span> <span class="attr">class</span>=<span class="string">"cn.yht.spring.beanInstance.HelloApiImpl"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">constructor-arg</span> <span class="attr">index</span>=<span class="string">"0"</span> <span class="attr">value</span>=<span class="string">"这是测试有参构造方法如何实例化bean"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>测试方法:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testHaveParam</span><span class="params">()</span></span>&#123;</span><br><span class="line">	ApplicationContext ac = <span class="keyword">new</span> ClassPathXmlApplicationContext(<span class="string">"haveParam.xml"</span>);</span><br><span class="line">	HelloApi bean = ac.getBean(<span class="string">"haveParam"</span>,HelloApi.class);</span><br><span class="line">	bean.sayHello();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>测试结果：<br><img src="http://p37r4tmp8.bkt.clouddn.com/blog/180430/mjC3GEIdGd.png?imageslim" alt="mark"></p>
+<h6 id="3：静态工厂"><a href="#3：静态工厂" class="headerlink" title="3：静态工厂"></a>3：静态工厂</h6><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HelloImpl</span> <span class="keyword">implements</span> <span class="title">Hello</span></span>&#123;</span><br><span class="line">	<span class="keyword">private</span> String message;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">HelloImpl</span><span class="params">(String message)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.message = message;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">sayHello</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		System.out.println(message);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>静态工厂方法：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HelloStaticFactory</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Hello <span class="title">newInstance</span><span class="params">(String message)</span></span>&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">new</span> HelloImpl(message);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>xml配置:<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"staticFactory"</span> <span class="attr">class</span>=<span class="string">"cn.yht.spring.beanInstance.HelloStaticFactory"</span> <span class="attr">factory-method</span>=<span class="string">"newInstance"</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">constructor-arg</span> <span class="attr">index</span>=<span class="string">"0"</span> <span class="attr">value</span>=<span class="string">"这是测试静态工厂如何实例化bean"</span>/&gt;</span> </span><br><span class="line">	<span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>测试方法:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testStaticFactoryParam</span><span class="params">()</span></span>&#123;</span><br><span class="line">	ApplicationContext ac = <span class="keyword">new</span> ClassPathXmlApplicationContext(<span class="string">"staticFactory.xml"</span>);</span><br><span class="line">	Hello bean = ac.getBean(<span class="string">"staticFactory"</span>,Hello.class);</span><br><span class="line">	bean.sayHello();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>测试结果:<br><img src="http://p37r4tmp8.bkt.clouddn.com/blog/180430/kme95C8HHf.png?imageslim" alt="mark"></p>
+<h6 id="4：实例化工厂"><a href="#4：实例化工厂" class="headerlink" title="4：实例化工厂"></a>4：实例化工厂</h6><p>实例化工厂方法:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RealInstanceFatory</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> Hello <span class="title">generateHello</span><span class="params">(String message)</span></span>&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">new</span> HelloImpl(message);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>xml配置:<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--实例工厂实例化bean--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"realInstanceFactory"</span> <span class="attr">class</span>=<span class="string">"cn.yht.spring.beanInstance.RealInstanceFatory"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"realFactory"</span> <span class="attr">factory-bean</span>=<span class="string">"realInstanceFactory"</span> <span class="attr">factory-method</span>=<span class="string">"generateHello"</span>&gt;</span> </span><br><span class="line">	<span class="tag">&lt;<span class="name">constructor-arg</span> <span class="attr">index</span>=<span class="string">"0"</span> <span class="attr">value</span>=<span class="string">"这是测试实例化工厂如何实例化bean"</span> &gt;</span><span class="tag">&lt;/<span class="name">constructor-arg</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>测试方法:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testRealFactory</span><span class="params">()</span></span>&#123;</span><br><span class="line">	ApplicationContext ac = <span class="keyword">new</span> ClassPathXmlApplicationContext(<span class="string">"realInstanceFactory.xml"</span>);</span><br><span class="line">	Hello bean = ac.getBean(<span class="string">"realFactory"</span>,Hello.class);</span><br><span class="line">	bean.sayHello();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>测试结果:<br><img src="http://p37r4tmp8.bkt.clouddn.com/blog/180430/452Kfeh06G.png?imageslim" alt="mark"><br>上面四种spring创建对象的方式只是xml的配置有些许不同，但是最后实例化对象的方式可以完全相同，感觉这样就很简单。<br>这篇博客主要讲解的是Spring IoC基础部分，包括IoC容器概念，如何实例化容器，Bean配置以及如何实例化bean等等;此篇博客没有涉及Bean之间关系，下篇博客才讲解配置Bean之间关系，也就是依赖注入等其他内容。    </p>
+<h2 id="源码下载-1"><a href="#源码下载-1" class="headerlink" title="源码下载"></a>源码下载</h2><p><a href="https://pan.baidu.com/s/1Q3Dh1Q06pog6AO9cq97E1g" target="_blank" rel="noopener">点我下载</a></p>
+</section>
+    <!-- Tags START -->
+    
+      <div class="tags">
+        <span>Tags:</span>
+        
+  <a href="/tags#java" >
+    <span class="tag-code">java</span>
+  </a>
+
+  <a href="/tags#Spring" >
+    <span class="tag-code">Spring</span>
+  </a>
+
+  <a href="/tags#IOC" >
+    <span class="tag-code">IOC</span>
+  </a>
+
+      </div>
+    
+    <!-- Tags END -->
+    <!-- 打赏 START -->
+    
+    <!-- 打赏 END -->
+    <!-- 二维码 START -->
+    
+    <!-- 二维码 END -->
+    
+      <!-- No Comment -->
+    
+  </article>
+  <!-- Article END -->
+  <!-- Catalog START -->
+  
+  <!-- Catalog END -->
+</main>
+
+<script>
+  (function () {
+    var url = 'http://yoursite.com/spring学习篇---IOC/';
+    var banner = ''
+    if (banner !== '' && banner !== 'undefined' && banner !== 'null') {
+      $('#article-banner').css({
+        'background-image': 'url(' + banner + ')'
+      })
+    } else {
+      $('#article-banner').geopattern(url)
+    }
+    $('.header').removeClass('fixed-header')
+
+     // error image
+    $(".markdown-content img").on('error', function() {
+      $(this).attr('src', 'http://file.muyutech.com/error-img.png')
+      $(this).css({
+        'cursor': 'default'
+      })
+    })
+
+    // zoom image
+    $(".markdown-content img").on('click', function() {
+      var src = $(this).attr('src')
+      if (src !== 'http://file.muyutech.com/error-img.png') {
+        var imageW = $(this).width()
+        var imageH = $(this).height()
+        
+        var zoom = ($(window).width() * 0.95 / imageW).toFixed(2)
+        zoom = zoom < 1 ? 1 : zoom
+        zoom = zoom > 2 ? 2 : zoom
+        var transY = (($(window).height() - imageH) / 2).toFixed(2)
+
+        $('body').append('<div class="image-view-wrap"><div class="image-view-inner"><img src="'+ src +'" /></div></div>')
+        $('.image-view-wrap').addClass('wrap-active')
+        $('.image-view-wrap img').css({
+          'width': `${imageW}`,
+          'transform': `translate3d(0, ${transY}px, 0) scale3d(${zoom}, ${zoom}, 1)`
+        })
+        $('html').css('overflow', 'hidden')
+
+        $('.image-view-wrap').on('click', function() {
+          $(this).remove()
+          $('html').attr('style', '')
+        })
+      }
+    })
+
+    // qrcode
+    var qr = new QRious({
+      element: document.getElementById('share-qrcode'),
+      value: document.location.href
+    });
+
+    // gitment
+    var gitmentConfig = "yanm1ng";
+    if (gitmentConfig !== 'undefined') {
+      var gitment = new Gitment({
+        id: "Spring 学习篇---IOC",
+        owner: "yanm1ng",
+        repo: "yanm1ng.github.io",
+        oauth: {
+          client_id: "0f87e490e00ee3fd87ef",
+          client_secret: "4a9d2b148e7971c2201ad12131ce8bf8159ccd2e"
+        },
+        theme: {
+          render(state, instance) {
+            const container = document.createElement('div')
+            container.lang = "en-US"
+            container.className = 'gitment-container gitment-root-container'
+            container.appendChild(instance.renderHeader(state, instance))
+            container.appendChild(instance.renderEditor(state, instance))
+            container.appendChild(instance.renderComments(state, instance))
+            container.appendChild(instance.renderFooter(state, instance))
+            return container;
+          }
+        }
+      })
+      gitment.render(document.getElementById('comments'))
+    }
+  })();
+</script>
+
+    <div class="scroll-top">
+  <span class="arrow-icon"></span>
+</div>
+    <footer class="app-footer">
+  <p class="copyright">
+    &copy; 2018 | Proudly powered by <a href="https://hexo.io" target="_blank">Hexo</a>
+    <br>
+    Theme by <a href="https://github.com/yanm1ng">yanm1ng</a>
+  </p>
+</footer>
+
+<script>
+  function async(u, c) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+</script>
+<script>
+  async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+    FastClick.attach(document.body);
+  })
+</script>
+
+<script>
+  var hasLine = 'true';
+  async("//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js", function(){
+    $('figure pre').each(function(i, block) {
+      var figure = $(this).parents('figure');
+      if (hasLine === 'false') {
+        figure.find('.gutter').hide();
+      }
+      var lang = figure.attr('class').split(' ')[1] || 'code';
+      var codeHtml = $(this).html();
+      var codeTag = document.createElement('code');
+      codeTag.className = lang;
+      codeTag.innerHTML = codeHtml;
+      $(this).attr('class', '').empty().html(codeTag);
+      figure.attr('data-lang', lang.toUpperCase());
+      hljs.highlightBlock(block);
+    });
+  })
+</script>
+<!-- Baidu Tongji -->
+
+<script src="/js/script.js"></script>
+  </body>
+</html>

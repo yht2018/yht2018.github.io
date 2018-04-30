@@ -10,7 +10,7 @@
   
   <title>
     
-      categories | Hexo
+      mysql查询日期函数 | Hexo
     
   </title>
   <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
@@ -100,8 +100,8 @@
 </header>
 
     <div id="article-banner">
-  <h2>categories</h2>
-  <p class="post-date">2018-01-27</p>
+  <h2>mysql查询日期函数</h2>
+  <p class="post-date">2018-04-05</p>
   <div class="arrow-down">
     <a href="javascript:;"></a>
   </div>
@@ -109,8 +109,36 @@
 <main class="app-body flex-box">
   <!-- Article START -->
   <article class="post-article">
-    <section class="markdown-content"></section>
+    <section class="markdown-content"><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>最近在项目中有一个这样的需求，需要展示环比和同比的数据，在项目中环比是上个月的数据，同比是去年同月的数据。所以需要我查询当月的时候，除此之外查询上个月的数据和去年同月的数据，这就涉及到mysql中怎么用sql表示上个月和去年同月的写法了。所以在此写篇博客记录一下。</p>
+<h2 id="查询日期是当天的数据，各种格式"><a href="#查询日期是当天的数据，各种格式" class="headerlink" title="查询日期是当天的数据，各种格式"></a>查询日期是当天的数据，各种格式</h2><h5 id="年月日-时分秒的格式"><a href="#年月日-时分秒的格式" class="headerlink" title="年月日 时分秒的格式"></a>年月日 时分秒的格式</h5><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="keyword">now</span>();</span><br></pre></td></tr></table></figure>
+<p>最后的结果是2018-04-24 17:35:57  </p>
+<h5 id="年月日的格式"><a href="#年月日的格式" class="headerlink" title="年月日的格式"></a>年月日的格式</h5><p>所以我们明确了now()最后的格式是yyyy-MM-dd hh:mm:ss的类型，但是有的时候我们并不需要时分秒，怎么在mysql中只获取到年月日，有两种方式:</p>
+<h6 id="方式一-使用mysql中的日期转换函数DATE-FORMAT。"><a href="#方式一-使用mysql中的日期转换函数DATE-FORMAT。" class="headerlink" title="方式一:使用mysql中的日期转换函数DATE_FORMAT。"></a>方式一:使用mysql中的日期转换函数DATE_FORMAT。</h6><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="keyword">DATE_FORMAT</span>(<span class="keyword">NOW</span>(), <span class="string">'%Y-%m-%d'</span>);</span><br></pre></td></tr></table></figure>
+<p>最后的结果是2018-04-24  </p>
+<h6 id="方式二：使用curdate"><a href="#方式二：使用curdate" class="headerlink" title="方式二：使用curdate()"></a>方式二：使用curdate()</h6><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="keyword">CURDATE</span>();</span><br></pre></td></tr></table></figure>
+<p>最后的结果也是2018-04-24    </p>
+<h5 id="时分秒的格式"><a href="#时分秒的格式" class="headerlink" title="时分秒的格式"></a>时分秒的格式</h5><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="keyword">CURTIME</span>();</span><br></pre></td></tr></table></figure>
+<p>最后的结果是17:42:24</p>
+<h2 id="查询日期是前几天或者前几年同月的数据"><a href="#查询日期是前几天或者前几年同月的数据" class="headerlink" title="查询日期是前几天或者前几年同月的数据"></a>查询日期是前几天或者前几年同月的数据</h2><h5 id="方式一-采用DATE-ADD（date-interval-expr-unit）函数"><a href="#方式一-采用DATE-ADD（date-interval-expr-unit）函数" class="headerlink" title="方式一:采用DATE_ADD（date,interval expr unit）函数"></a>方式一:采用DATE_ADD（date,interval expr unit）函数</h5><p>其中date表示的时间，interval是间隔，expr是可以是1,2，-1,-2等等,unit可以是DAY,YEAR,MONTH。<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">#获得前一天的时间</span><br><span class="line"><span class="keyword">select</span> <span class="keyword">DATE_ADD</span>(<span class="keyword">NOW</span>(),<span class="built_in">INTERVAL</span> <span class="number">-1</span> <span class="keyword">DAY</span>);</span><br><span class="line">#获得去年同月的时间</span><br><span class="line"><span class="keyword">select</span> <span class="keyword">DATE_ADD</span>(<span class="keyword">CURDATE</span>(),<span class="built_in">INTERVAL</span> <span class="number">-1</span> <span class="keyword">YEAR</span>);</span><br></pre></td></tr></table></figure></p>
+<p>最后的结果是2018-04-23 17:45:51<br>2017-04-24</p>
+<h5 id="方式二-采用-DATE-SUB-date-INTERVAL-expr-unit-函数"><a href="#方式二-采用-DATE-SUB-date-INTERVAL-expr-unit-函数" class="headerlink" title="方式二:采用 DATE_SUB(date,INTERVAL expr unit)函数"></a>方式二:采用 DATE_SUB(date,INTERVAL expr unit)函数</h5><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">#获得前两天的时间</span><br><span class="line"><span class="keyword">select</span> <span class="keyword">DATE_SUB</span>(<span class="keyword">NOW</span>(),<span class="built_in">INTERVAL</span> <span class="number">2</span> <span class="keyword">DAY</span>);</span><br><span class="line">#获得前三年同月的时间</span><br><span class="line"><span class="keyword">select</span> <span class="keyword">DATE_SUB</span>(<span class="keyword">CURDATE</span>(),<span class="built_in">INTERVAL</span> <span class="number">3</span> <span class="keyword">YEAR</span>);</span><br></pre></td></tr></table></figure>
+<p>最后的结果是<br>2018-04-22 17:53:53<br>2015-04-24</p>
+<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><p>除此之外,mysql其实还有很多和时间相关的函数，基本学会了这些，就会明白MySQL其他的和时间有关的函数，在此就不一一介绍了，感兴趣的可以去学习。</p>
+</section>
     <!-- Tags START -->
+    
+      <div class="tags">
+        <span>Tags:</span>
+        
+  <a href="/tags#mysql" >
+    <span class="tag-code">mysql</span>
+  </a>
+
+  <a href="/tags#Date" >
+    <span class="tag-code">Date</span>
+  </a>
+
+      </div>
     
     <!-- Tags END -->
     <!-- 打赏 START -->
@@ -131,7 +159,7 @@
 
 <script>
   (function () {
-    var url = 'http://yoursite.com/categories/index.html';
+    var url = 'http://yoursite.com/mysql 查询日期函数/';
     var banner = ''
     if (banner !== '' && banner !== 'undefined' && banner !== 'null') {
       $('#article-banner').css({
@@ -187,7 +215,7 @@
     var gitmentConfig = "yanm1ng";
     if (gitmentConfig !== 'undefined') {
       var gitment = new Gitment({
-        id: "categories",
+        id: "mysql查询日期函数",
         owner: "yanm1ng",
         repo: "yanm1ng.github.io",
         oauth: {
