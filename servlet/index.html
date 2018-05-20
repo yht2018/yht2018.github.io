@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  <meta name="description" content="yht&#39;s blog">
+  <meta name="keyword" content="Java">
+  
+    <link rel="shortcut icon" href="/css/images/logo.png">
+  
+  <title>
+    
+      servlet | Hexo
+    
+  </title>
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <link href="//cdn.bootcss.com/nprogress/0.2.0/nprogress.min.css" rel="stylesheet">
+  <link href="//cdn.bootcss.com/highlight.js/9.12.0/styles/tomorrow.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/css/plugins/gitment.css">
+  <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+  <script src="//cdn.bootcss.com/geopattern/1.2.3/js/geopattern.min.js"></script>
+  <script src="//cdn.bootcss.com/nprogress/0.2.0/nprogress.min.js"></script>
+  <script src="/js/qrious.js"></script>
+<script src="/js/gitment.js"></script>
+</head>
+<div class="wechat-share">
+  <img src="/css/images/logo.png" />
+</div>
+
+  <body>
+    <header class="header fixed-header">
+  <div class="header-container">
+    <a class="home-link" href="/">
+      <div class="logo"></div>
+      <span>Hexo</span>
+    </a>
+    <ul class="right-list">
+      
+        <li class="list-item">
+          
+            <a href="/" class="item-link">Home</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/tags/" class="item-link">Tags</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/archives/" class="item-link">Archives</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/about/" class="item-link">About</a>
+          
+        </li>
+      
+    </ul>
+    <div class="menu">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </div>
+    <div class="menu-mask">
+      <ul class="menu-list">
+        
+          <li class="menu-item">
+            
+              <a href="/" class="menu-link">Home</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/tags/" class="menu-link">Tags</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/archives/" class="menu-link">Archives</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/about/" class="menu-link">About</a>
+            
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</header>
+
+    <div id="article-banner">
+  <h2>servlet</h2>
+  <p class="post-date">2018-05-10</p>
+  <div class="arrow-down">
+    <a href="javascript:;"></a>
+  </div>
+</div>
+<main class="app-body flex-box">
+  <!-- Article START -->
+  <article class="post-article">
+    <section class="markdown-content"><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>最近准备学习一下javaWeb部分的内容，所以就从网上找了一些学习的资料，平时工作更注重的是应用，只能自己在工作之余加强一些基础吧，最近的博客有可能内容比较简单，也只是记录一下我学习的笔记而已。这篇博客主要记录的识servlet有关的知识。</p>
+<h1 id="Servlet概述及入门"><a href="#Servlet概述及入门" class="headerlink" title="Servlet概述及入门"></a>Servlet概述及入门</h1><h2 id="servlet概述"><a href="#servlet概述" class="headerlink" title="servlet概述"></a>servlet概述</h2><p>servlet其实就是一个运行在web服务器上的小的java程序而已，用来处理从客户端发送过来的请求，并且对其作出响应，通常应用于http协议的。通常需要编写一个类实现servlet接口，并且将编写的这个类配置到服务器即可。<br><strong>servlet入门</strong><br>类<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> *servlet入门</span></span><br><span class="line"><span class="comment"> *该类需要实现Servlet该接口</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ServletGetStarted</span> <span class="keyword">implements</span> <span class="title">Servlet</span></span>&#123;</span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">service</span><span class="params">(ServletRequest arg0, ServletResponse arg1)</span> <span class="keyword">throws</span> ServletException, IOException </span>&#123;</span><br><span class="line">		arg1.getWriter().print(<span class="string">"servlet getStart"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>web.xml配置servlet<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">servlet</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- servlet的名称 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>start<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- servlet的全限定类名 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">servlet-class</span>&gt;</span>com.yht.servletStarted.ServletGetStarted<span class="tag">&lt;/<span class="name">servlet-class</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">servlet</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">servlet-mapping</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- servlet的名称 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>start<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- servlet的访问路径 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">url-pattern</span>&gt;</span>/getStarted<span class="tag">&lt;/<span class="name">url-pattern</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">servlet-mapping</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p><strong>访问流程</strong><br>访问<a href="http://localhost:8080/servletStudy/getStarted" target="_blank" rel="noopener">http://localhost:8080/servletStudy/getStarted</a> 即可，从上面这些配置和类的写法我们可以看出，用户在浏览器端输入地址，根据/getStarted找到web.xml中的servlet映射中的访问路径<url-pattern>中的值，由这个值找到servlet的名称，再由这个名称找到<servlet>标签中相同的名称，最终找到全限定类名，最后找到实现servlet接口的那个类，执行service中的代码即达到了效果。</servlet></url-pattern></p>
+<h1 id="Servlet接收参数"><a href="#Servlet接收参数" class="headerlink" title="Servlet接收参数"></a>Servlet接收参数</h1><p><strong>ServletRequest</strong><br>在servlet中我们是使用servletRequest来接收参数的，在servletRequest中有四个方法可以用来接收参数：</p>
+<ul>
+<li>String getParameter(String name);        —用于接收一个名称对应一个值的数据.</li>
+<li>String[] getParameterValues(String name);—用于接收一个名称对应多个值的数据.</li>
+<li>Map getParameterMap();                    —用于接收表单中的所有的数据,Map的key是表单提交的参数名称,Map的value是提交参数的值.</li>
+<li>Enumeration getParameterNames()            —用于获取表单中提交的所有的参数的名称.</li>
+</ul>
+<h1 id="Servlet的实现关系"><a href="#Servlet的实现关系" class="headerlink" title="Servlet的实现关系"></a>Servlet的实现关系</h1><p><strong>GenericServlet</strong><br>Servlet接口下有一个GenericServlet类，这个类实现的是Servlet接口，这个类是通用的，不管对于什么协议都是可以的；<br><strong>HttpServlet</strong><br>另外还有一个HttpServlet类，通过查看该类的源码，该类继承的是GenericServlet这个类，HttpServlet类是专门用于Http协议的,而且该类还可以处理各种方式的请求，get,post,OPTIONS,put等等，但是我们通常接触到的请求方式是get和post，所以我们只关注这两个即可,发现HttpServlet中实现的是doGet()方法和doPost()方法。由于我们以后接触到的开发都是和http协议有关的，所以以后我们写的类只需要继承HttpServlet类，并且重写doGet和doPost方法即可。<br><strong>注意</strong><br>到这里，我们之后创建servlet类，只需要直接创建servlet类，然后默认继承的就是HttpServlet，并且我们在重写方法的时候，我们只需要选择doGet()和doPost()方法，其他的方法不需要勾选，最重要的是这样的方式直接给我们把web.xml配置好了，我们不需要自己配置了。</p>
+<h1 id="Servlet的生命周期"><a href="#Servlet的生命周期" class="headerlink" title="Servlet的生命周期"></a>Servlet的生命周期</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LifeCycleServlet</span> <span class="keyword">extends</span> <span class="title">HttpServlet</span> </span>&#123;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">long</span> serialVersionUID = <span class="number">1L</span>;</span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * 初始化方法</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">init</span><span class="params">(ServletConfig config)</span> <span class="keyword">throws</span> ServletException </span>&#123;</span><br><span class="line">		System.out.println(<span class="string">"servlet初始化方法"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * 销毁方法</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">destroy</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		System.out.println(<span class="string">"servlet销毁方法"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * 执行方法</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">service</span><span class="params">(HttpServletRequest request, HttpServletResponse response)</span> <span class="keyword">throws</span> ServletException, IOException </span>&#123;</span><br><span class="line">		System.out.println(<span class="string">"执行了"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>启动完tomcat,访问<a href="http://localhost:8080/servletStudy/LifeCycleServlet" target="_blank" rel="noopener">http://localhost:8080/servletStudy/LifeCycleServlet</a> , 发现访问完一次之后，控制台输出如下：<br><img src="http://p37r4tmp8.bkt.clouddn.com/blog/180520/9ELj8h6KCg.png?imageslim" alt="mark"><br>再次刷新访问两次之后，控制台输出如下：<br><img src="http://p37r4tmp8.bkt.clouddn.com/blog/180520/CkG46hbDAH.png?imageslim" alt="mark"><br>那么destroy方法中的内容什么时候执行，我们此时关闭tomcat服务器或者将项目从服务器中移除即可执行destroy中的内容。</p>
+<h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><p>所以综上，对于servlet的生命周期，即servlet从创建到销毁的整个过程是用户第一次访问Servlet的时候,服务器会创建一个Servlet的实例,那么Servlet中init方法就会执行.任何一次请求服务器都会创建一个新的线程访问Servlet中的service的方法.在service方法内部根据请求的方式的不同调用doXXX的方法.(get请求调用doGet,post请求调用doPost).当Servlet中服务器中移除掉,或者关闭服务器,Servlet的实例就会被销毁,那么destroy方法就会执行.</p>
+<h1 id="Servlet的相关配置"><a href="#Servlet的相关配置" class="headerlink" title="Servlet的相关配置"></a>Servlet的相关配置</h1><p><strong><code>&lt;load-on-startup&gt;</code>配置</strong><br>在上面的Servlet的生命周期中我们知道servlet的初始化创建是在用户第一次访问servlet的时候，现在我们想要servlet在tomcat启动的时候就初始化，那么就需要在<servlet>标签下配置：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">load-on-startup</span>&gt;</span>2<span class="tag">&lt;/<span class="name">load-on-startup</span>&gt;</span></span><br></pre></td></tr></table></figure></servlet></p>
+<p><strong><code>&lt;url-pattern&gt;</code>的配置</strong><br>url-pattern配置方式共有三种:  </p>
+<ul>
+<li>完全路径匹配    ：以 / 开始<br>例如:/ServletDemo4 , /aaa/ServletDemo5等</li>
+<li>目录匹配：以 / 开始 需要以 <em> 结束.    例如: /</em> ,/aaa/<em> ,/aaa/bbb/</em></li>
+<li>扩展名匹配：不能以 / 开始 以 <em> 开始的. 例如: </em>.do , <em>.action<br>错误的写法： /</em>.do</li>
+</ul>
+<p><strong>注意</strong><br>例如有以下的配置:<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">servlet</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>ServletDemo1<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">servlet-class</span>&gt;</span>com.yht.servletStudy.demo1<span class="tag">&lt;/<span class="name">servlet-class</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">servlet</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">servlet-mapping</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>ServletDemo1<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">url-pattern</span>&gt;</span>/ServletDemo1<span class="tag">&lt;/<span class="name">url-pattern</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">servlet-mapping</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">servlet</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>ServletDemo2<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">servlet-class</span>&gt;</span>com.yht.servletStudy.demo2<span class="tag">&lt;/<span class="name">servlet-class</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">servlet</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">servlet-mapping</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>ServletDemo2<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">url-pattern</span>&gt;</span>/*<span class="tag">&lt;/<span class="name">url-pattern</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">servlet-mapping</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">servlet</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>ServletDemo3<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">servlet-class</span>&gt;</span>com.yht.servletStudy.demo3<span class="tag">&lt;/<span class="name">servlet-class</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">servlet</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">servlet-mapping</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>ServletDemo3<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">url-pattern</span>&gt;</span>*.do<span class="tag">&lt;/<span class="name">url-pattern</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">servlet-mapping</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>此时如果访问的是 <a href="http://localhost:8080/servletStudy/ServletDemo1" target="_blank" rel="noopener">http://localhost:8080/servletStudy/ServletDemo1</a> ， 那么最终执行的是ServletDemo1的servlet，虽然ServletDemo1和servletDemo2的配置都满足这个访问的地址，但是由于优先级的关系，所以最终执行的是ServletDemo1的servlet.<br><a href="http://localhost:8080/servletStudy/aaa.do" target="_blank" rel="noopener">http://localhost:8080/servletStudy/aaa.do</a> ,  servletDemo2和servletDemo3都满足，但是同样由于一个优先级最终执行的是servletDemo2的servlet。<br><strong>完全路径匹配 &gt; 目录匹配 &gt; 扩展名匹配</strong></p>
+<h1 id="ServletContext"><a href="#ServletContext" class="headerlink" title="ServletContext"></a>ServletContext</h1><p>ServletContext是一个域对象,它作用于整个web工程项目的，服务器启动的时候，会为每个web项目创建一个单独的ServletContext对象，服务器关闭或者项目从服务器移除的时候这个对象就销毁。</p>
+<h2 id="ServletContext的作用"><a href="#ServletContext的作用" class="headerlink" title="ServletContext的作用:"></a>ServletContext的作用:</h2><p><strong>1.用来获得全局初始化参数.</strong><br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">全局初始化参数配置，配置在servlet标签外面</span><br><span class="line"><span class="tag">&lt;<span class="name">context-param</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">param-name</span>&gt;</span>context<span class="tag">&lt;/<span class="name">param-name</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">param-value</span>&gt;</span>contextParam<span class="tag">&lt;/<span class="name">param-value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">context-param</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>获取一般是用getInitParameter()方法[是通过名称获取value的值]<br>和getInitParameterNames()方法[获取所有的全局初始化参数的名称]<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">String initParameter = <span class="keyword">this</span>.getServletContext().getInitParameter(<span class="string">"context"</span>);</span><br><span class="line">Enumeration&lt;String&gt; initParameterNames = <span class="keyword">this</span>.getServletContext().getInitParameterNames();</span><br></pre></td></tr></table></figure></p>
+<p><strong>2.用来获得文件的MIME的类型.</strong><br>使用getMimeType(String file);方法可以获得文件的Mime类型<br><strong>3.作为域对象存取数据.  </strong><br>比如，记录登录的用户数量这个案例，我们就需要使用ServletContext作为域对象使用，需要在登录的Servlet中完成记录数的存和增加，最后在另外一个Servlet类中取出来展示即可:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">init</span><span class="params">()</span> <span class="keyword">throws</span> ServletException </span>&#123;</span><br><span class="line">	<span class="comment">//初始化一个变量，记录用户数量</span></span><br><span class="line">	<span class="keyword">int</span> personNum = <span class="number">0</span>;</span><br><span class="line">	<span class="comment">//并且将该数量放到一个上下文对象中</span></span><br><span class="line">	<span class="keyword">this</span>.getServletContext().setAttribute(<span class="string">"personNum"</span>,personNum);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doGet</span><span class="params">(HttpServletRequest request, HttpServletResponse response)</span> <span class="keyword">throws</span> ServletException </span>&#123;</span><br><span class="line">	<span class="keyword">try</span> &#123;</span><br><span class="line">		<span class="comment">//处理接受参数的乱码</span></span><br><span class="line">		request.setCharacterEncoding(<span class="string">"UTF-8"</span>);</span><br><span class="line">		<span class="comment">//处理响应的中文乱码</span></span><br><span class="line">		response.setContentType(<span class="string">"text/html;charset=UTF-8"</span>);</span><br><span class="line">		<span class="comment">//获得用户填写的参数数据</span></span><br><span class="line">		String username = request.getParameter(<span class="string">"username"</span>);</span><br><span class="line">		String password = request.getParameter(<span class="string">"password"</span>);</span><br><span class="line">		User user = <span class="keyword">new</span> User();</span><br><span class="line">		user.setPassword(password);</span><br><span class="line">		user.setUsername(username);</span><br><span class="line">		<span class="comment">//调用service方法</span></span><br><span class="line">		LoginService loginService = <span class="keyword">new</span> LoginService();</span><br><span class="line">		User currentUser = loginService.Login(user);</span><br><span class="line">		<span class="keyword">if</span>(currentUser == <span class="keyword">null</span>)&#123;</span><br><span class="line">			response.getWriter().print(<span class="string">"用户名和密码错误"</span>);</span><br><span class="line">		&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">			response.getWriter().print(<span class="string">"登录成功"</span>);</span><br><span class="line">			<span class="comment">//登录成功之后就将人数加1</span></span><br><span class="line">			<span class="keyword">int</span> num  = (<span class="keyword">int</span>) <span class="keyword">this</span>.getServletContext().getAttribute(<span class="string">"personNum"</span>);</span><br><span class="line">			num++ ;</span><br><span class="line">			<span class="comment">//人数加完之后再set到上下文对象中</span></span><br><span class="line">			<span class="keyword">this</span>.getServletContext().setAttribute(<span class="string">"personNum"</span>, num);</span><br><span class="line">			<span class="comment">//记录完用户数之后跳转到LoginNumServlet</span></span><br><span class="line">			response.setStatus(<span class="number">302</span>);</span><br><span class="line">			response.setHeader(<span class="string">"location"</span>,<span class="string">"/servletStudy/LoginNumServlet"</span>);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">		e.printStackTrace();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LoginNumServlet</span> <span class="keyword">extends</span> <span class="title">HttpServlet</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doGet</span><span class="params">(HttpServletRequest request, HttpServletResponse response)</span></span></span><br><span class="line"><span class="function">			<span class="keyword">throws</span> ServletException, IOException </span>&#123;</span><br><span class="line">		<span class="comment">//设置响应乱码</span></span><br><span class="line">		response.setContentType(<span class="string">"text/html;charset=UTF-8"</span>);</span><br><span class="line">		<span class="comment">//取出在登录时候存储的人数，由于使用的是servletContext对象，所以是整个项目中都是通用的</span></span><br><span class="line">		<span class="keyword">int</span> pNum = (<span class="keyword">int</span>) <span class="keyword">this</span>.getServletContext().getAttribute(<span class="string">"personNum"</span>);</span><br><span class="line">		<span class="comment">//将人数显示在页面上</span></span><br><span class="line">		response.getWriter().println(<span class="string">"&lt;h1&gt;您好，您是第"</span>+pNum+ <span class="string">"位登录成功的用户&lt;/h1&gt;"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doPost</span><span class="params">(HttpServletRequest request, HttpServletResponse response)</span></span></span><br><span class="line"><span class="function">			<span class="keyword">throws</span> ServletException, IOException </span>&#123;</span><br><span class="line">		doGet(request,response);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>4.用来读取web项目下的文件.</strong><br>例如，现在在web项目的src下面有一个文件，里面存储的是类似于键值对的属性和数据，由于我们的项目是发布到tomcat下面的，所以不能直接读取src/文件名，这样运行只有会出现java.io.FileNotFoundException异常，系统找不到指定的路径的错误。所以需要使用ServletContext对象来读取web项目下的文件。但是如果该项目是个java项目，则是可以直接使用传统方式读取文件的。</p>
+<ul>
+<li>getResourceAsStream()方法<br>该方法返回的是输入流InputStream，并且默认的路径是从项目名开始的，而且所有的文件的路径都应该是相对于tomcat服务器而言的。</li>
+<li><p>getRealPath()方法<br>该方法返回的是项目的磁盘路径。</p>
+</li>
+<li><p>例如：现在在项目的src下面有一个文件test.properties，我们需要通过这两种方式读取文件中的内容：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doGet</span><span class="params">(HttpServletRequest request, HttpServletResponse response)</span></span></span><br><span class="line"><span class="function">			<span class="keyword">throws</span> ServletException, IOException </span>&#123;</span><br><span class="line">	<span class="comment">/**test.properties文件在</span></span><br><span class="line"><span class="comment">	 * F:\newTomcat\apache-tomcat-7.0.65-64\webapps\servletStudy\WEB-INF\classes下面，</span></span><br><span class="line"><span class="comment">	 * 而对于servletContext上下文对象而言，默认的路径是到webapps\servletStudy为止的，因为servletContext</span></span><br><span class="line"><span class="comment">	 * 是对于整个项目都是有效的，所以想要得到test.properties</span></span><br><span class="line"><span class="comment">	 * 文件，我们需要从servletStudy\WEB-INF\classes\test.properties这样才能获取到那个文件</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	InputStream inputStream = <span class="keyword">this</span>.getServletContext().getResourceAsStream(<span class="string">"/WEB-INF/classes/test.properties"</span>);</span><br><span class="line">	Properties property = <span class="keyword">new</span> Properties();</span><br><span class="line">	property.load(inputStream);</span><br><span class="line">	String name = property.getProperty(<span class="string">"username"</span>);</span><br><span class="line">	String password = property.getProperty(<span class="string">"password"</span>);</span><br><span class="line">	System.out.print(name+<span class="string">"--------"</span>+password);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doGet</span><span class="params">(HttpServletRequest request, HttpServletResponse response)</span></span></span><br><span class="line"><span class="function">		<span class="keyword">throws</span> ServletException, IOException </span>&#123;</span><br><span class="line">	<span class="comment">//文件的真实路径 F:\newTomcat\apache-tomcat-7.0.65-64\webapps\servletStudy,是项目的磁盘路径</span></span><br><span class="line">	String realPath = <span class="keyword">this</span>.getServletContext().getRealPath(<span class="string">"/WEB-INF/classes/test.properties"</span>);</span><br><span class="line">	File file = <span class="keyword">new</span> File(realPath);</span><br><span class="line">	InputStream ins = <span class="keyword">new</span> FileInputStream(file);</span><br><span class="line">	Properties prop = <span class="keyword">new</span> Properties();</span><br><span class="line">	prop.load(ins);</span><br><span class="line">	String username = prop.getProperty(<span class="string">"username"</span>);</span><br><span class="line">	String password = prop.getProperty(<span class="string">"password"</span>);</span><br><span class="line">	System.out.println(username+<span class="string">"-----------"</span>+password);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="扩展-使用类加载器读取文件"><a href="#扩展-使用类加载器读取文件" class="headerlink" title="扩展(使用类加载器读取文件)"></a>扩展(使用类加载器读取文件)</h2><p> 从上面的ServletContext我们知道使用ServletContext中的getResourceAsStream()和getRealPath()这两个方法可以进行读取web项目下的文件，但是万一我们的项目不一定是web项目的话，这种写法就不是很通用了，所以需要写一个通用的读取文件的方法，使用类加载器。  </p>
+<ul>
+<li>类的加载器可以用来加载class文件，将class文件加载到内存，类加载器读的是类路径，即classes的那层路径。那么我们的文件路径直接从classes那层路径开始算起，即下面的路径：F:\newTomcat\apache-tomcat-7.0.65-64\webapps\servletStudy\WEB-INF\classes 而我们的文件就在classes下面。</li>
+<li>具体代码实现：<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ReadFileByClass</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">redaFile</span><span class="params">()</span></span>&#123;</span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line">			InputStream is = ReadFileByClass.class.getClassLoader().getResourceAsStream(<span class="string">"test.properties"</span>);</span><br><span class="line">			Properties prop = <span class="keyword">new</span> Properties();</span><br><span class="line">			prop.load(is);</span><br><span class="line">			String username = prop.getProperty(<span class="string">"username"</span>);</span><br><span class="line">			String password = prop.getProperty(<span class="string">"password"</span>);</span><br><span class="line">			System.out.println(username+<span class="string">"-------------"</span>+password);</span><br><span class="line">		&#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</section>
+    <!-- Tags START -->
+    
+      <div class="tags">
+        <span>Tags:</span>
+        
+  <a href="/tags#java web" >
+    <span class="tag-code">java web</span>
+  </a>
+
+  <a href="/tags#servlet" >
+    <span class="tag-code">servlet</span>
+  </a>
+
+      </div>
+    
+    <!-- Tags END -->
+    <!-- 打赏 START -->
+    
+    <!-- 打赏 END -->
+    <!-- 二维码 START -->
+    
+    <!-- 二维码 END -->
+    
+      <!-- No Comment -->
+    
+  </article>
+  <!-- Article END -->
+  <!-- Catalog START -->
+  
+  <!-- Catalog END -->
+</main>
+
+<script>
+  (function () {
+    var url = 'http://yoursite.com/servlet/';
+    var banner = ''
+    if (banner !== '' && banner !== 'undefined' && banner !== 'null') {
+      $('#article-banner').css({
+        'background-image': 'url(' + banner + ')'
+      })
+    } else {
+      $('#article-banner').geopattern(url)
+    }
+    $('.header').removeClass('fixed-header')
+
+     // error image
+    $(".markdown-content img").on('error', function() {
+      $(this).attr('src', 'http://file.muyutech.com/error-img.png')
+      $(this).css({
+        'cursor': 'default'
+      })
+    })
+
+    // zoom image
+    $(".markdown-content img").on('click', function() {
+      var src = $(this).attr('src')
+      if (src !== 'http://file.muyutech.com/error-img.png') {
+        var imageW = $(this).width()
+        var imageH = $(this).height()
+        
+        var zoom = ($(window).width() * 0.95 / imageW).toFixed(2)
+        zoom = zoom < 1 ? 1 : zoom
+        zoom = zoom > 2 ? 2 : zoom
+        var transY = (($(window).height() - imageH) / 2).toFixed(2)
+
+        $('body').append('<div class="image-view-wrap"><div class="image-view-inner"><img src="'+ src +'" /></div></div>')
+        $('.image-view-wrap').addClass('wrap-active')
+        $('.image-view-wrap img').css({
+          'width': `${imageW}`,
+          'transform': `translate3d(0, ${transY}px, 0) scale3d(${zoom}, ${zoom}, 1)`
+        })
+        $('html').css('overflow', 'hidden')
+
+        $('.image-view-wrap').on('click', function() {
+          $(this).remove()
+          $('html').attr('style', '')
+        })
+      }
+    })
+
+    // qrcode
+    var qr = new QRious({
+      element: document.getElementById('share-qrcode'),
+      value: document.location.href
+    });
+
+    // gitment
+    var gitmentConfig = "yanm1ng";
+    if (gitmentConfig !== 'undefined') {
+      var gitment = new Gitment({
+        id: "servlet",
+        owner: "yanm1ng",
+        repo: "yanm1ng.github.io",
+        oauth: {
+          client_id: "0f87e490e00ee3fd87ef",
+          client_secret: "4a9d2b148e7971c2201ad12131ce8bf8159ccd2e"
+        },
+        theme: {
+          render(state, instance) {
+            const container = document.createElement('div')
+            container.lang = "en-US"
+            container.className = 'gitment-container gitment-root-container'
+            container.appendChild(instance.renderHeader(state, instance))
+            container.appendChild(instance.renderEditor(state, instance))
+            container.appendChild(instance.renderComments(state, instance))
+            container.appendChild(instance.renderFooter(state, instance))
+            return container;
+          }
+        }
+      })
+      gitment.render(document.getElementById('comments'))
+    }
+  })();
+</script>
+
+    <div class="scroll-top">
+  <span class="arrow-icon"></span>
+</div>
+    <footer class="app-footer">
+  <p class="copyright">
+    &copy; 2018 | Proudly powered by <a href="https://hexo.io" target="_blank">Hexo</a>
+    <br>
+    Theme by <a href="https://github.com/yanm1ng">yanm1ng</a>
+  </p>
+</footer>
+
+<script>
+  function async(u, c) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+</script>
+<script>
+  async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+    FastClick.attach(document.body);
+  })
+</script>
+
+<script>
+  var hasLine = 'true';
+  async("//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js", function(){
+    $('figure pre').each(function(i, block) {
+      var figure = $(this).parents('figure');
+      if (hasLine === 'false') {
+        figure.find('.gutter').hide();
+      }
+      var lang = figure.attr('class').split(' ')[1] || 'code';
+      var codeHtml = $(this).html();
+      var codeTag = document.createElement('code');
+      codeTag.className = lang;
+      codeTag.innerHTML = codeHtml;
+      $(this).attr('class', '').empty().html(codeTag);
+      figure.attr('data-lang', lang.toUpperCase());
+      hljs.highlightBlock(block);
+    });
+  })
+</script>
+<!-- Baidu Tongji -->
+
+<script src="/js/script.js"></script>
+  </body>
+</html>
