@@ -144,7 +144,6 @@
 <ul>
 <li>解决:<ul>
 <li>设置中文转成字节数组取出的时候的编码</li>
-<li>设置浏览器默认打开的时候编码</li>
 <li>设置浏览器默认打开的编码:<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 设置浏览器默认打开的时候采用的字符集编码</span></span><br><span class="line">response.setHeader(<span class="string">"Content-Type"</span>, <span class="string">"text/html;charset=UTF-8"</span>);</span><br><span class="line"><span class="comment">// 设置中文转成字节数组的时候取出的编码</span></span><br><span class="line">response.getOutputStream().write(<span class="string">"字节响应中文乱码"</span>.getBytes(<span class="string">"UTF-8"</span>));</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
