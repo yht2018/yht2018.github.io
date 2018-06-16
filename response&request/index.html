@@ -171,8 +171,11 @@
 </li>
 </ul>
 <h3 id="GET请求的中文乱码"><a href="#GET请求的中文乱码" class="headerlink" title="GET请求的中文乱码:"></a>GET请求的中文乱码:</h3><ul>
-<li>1.修改tomcat的字符集的编码.(不推荐)</li>
-<li>2.使用URLEncoder和URLDecoder进行编码和解码的操作.</li>
+<li><p>1.修改tomcat的字符集的编码.(不推荐)</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">Connector</span> <span class="attr">port</span>=<span class="string">"8080"</span> <span class="attr">protocol</span>=<span class="string">"HTTP/1.1"</span></span></span><br><span class="line"><span class="tag">               <span class="attr">connectionTimeout</span>=<span class="string">"20000"</span></span></span><br><span class="line"><span class="tag">               <span class="attr">redirectPort</span>=<span class="string">"8443"</span> <span class="attr">URIEncoding</span>=<span class="string">"UTF-8"</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>2.使用URLEncoder和URLDecoder进行编码和解码的操作.</p>
+</li>
 <li>3.使用String的构造方法:<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">String username = <span class="keyword">new</span> String(request.getParameter(<span class="string">"username"</span>).getBytes(<span class="string">"ISO-8859-1"</span>),<span class="string">"UTF-8"</span>);</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
