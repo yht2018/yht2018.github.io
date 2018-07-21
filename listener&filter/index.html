@@ -109,8 +109,8 @@
 <main class="app-body flex-box">
   <!-- Article START -->
   <article class="post-article">
-    <section class="markdown-content"><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>最近学习了一下web中比较重要的两个知识点，一个是监听器，另一个就是过滤器。估在此详细的简单介绍一下，也是自己记录的一个方式。</p>
-<h2 id="监听器"><a href="#监听器" class="headerlink" title="监听器"></a>监听器</h2><p>监听器就是java的一个类，用来监听其他java类的状态变化，主要应用在图形化界面中比较多: 比如GUI,Android.</p>
+    <section class="markdown-content"><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a><strong>前言</strong></h2><p>最近学习了一下web中比较重要的两个知识点，一个是监听器，另一个就是过滤器。估在此详细的简单介绍一下，也是自己记录的一个方式。</p>
+<h2 id="监听器"><a href="#监听器" class="headerlink" title="监听器"></a><strong>监听器</strong></h2><p>监听器就是java的一个类，用来监听其他java类的状态变化，主要应用在图形化界面中比较多: 比如GUI,Android.</p>
 <p>监听器的术语：</p>
 <ul>
 <li>事件源:指的是被监听的对象.(汽车)</li>
@@ -118,13 +118,13 @@
 <li>事件源与监听器的绑定:就是在汽车上安装报警器.</li>
 <li>事件:指的是事件源的改变.(踹汽车一脚)—主要的功能获得事件源对象.  </li>
 </ul>
-<h2 id="WEB中的监听器共有三类八种-监听三个域对象"><a href="#WEB中的监听器共有三类八种-监听三个域对象" class="headerlink" title="WEB中的监听器共有三类八种(监听三个域对象)"></a>WEB中的监听器共有三类八种(监听三个域对象)</h2><p>我们知道web中有三个域对象，分别为servletContext上下文对象，这个对象是贯穿整个项目的，一个是HttpSession域对象，这个对象的作用域是一次会话多次请求的，最后一个就是ServletRequest对象，它的作用域范围更小，作用范围是一次请求；</p>
+<h2 id="WEB中的监听器共有三类八种-监听三个域对象"><a href="#WEB中的监听器共有三类八种-监听三个域对象" class="headerlink" title="WEB中的监听器共有三类八种(监听三个域对象)"></a><strong>WEB中的监听器共有三类八种(监听三个域对象)</strong></h2><p>我们知道web中有三个域对象，分别为servletContext上下文对象，这个对象是贯穿整个项目的，一个是HttpSession域对象，这个对象的作用域是一次会话多次请求的，最后一个就是ServletRequest对象，它的作用域范围更小，作用范围是一次请求；</p>
 <ul>
 <li>事件源：Servlet中的三个域对象.ServletContext,HttpSession,ServletRequest.</li>
 <li>监听器：自定义类实现8个接口.</li>
 <li>事件源和监听器的绑定：配置.</li>
 </ul>
-<h6 id="第一类监听器"><a href="#第一类监听器" class="headerlink" title="第一类监听器"></a>第一类监听器</h6><ul>
+<h6 id="第一类监听器"><a href="#第一类监听器" class="headerlink" title="第一类监听器"></a><strong>第一类监听器</strong></h6><ul>
 <li><p>一类：监听三个域对象的创建和销毁的监听器:</p>
 <ul>
 <li><p>ServletContextListener<br>ServletContextListener主要监听的是servletContext上下文对象的创建和销毁，servletContext对象是在服务器启动的时候就创建了，在服务器关闭或者项目移除的时候就会被销毁，servletContext对象是作用于整个项目的；所以一般在企业中它的应用是加载框架的配置文件，比如Spring框架中的ContextLoaderListener，这个加载配置文件的监听器就是实现的ServletContextListener监听器;再比如定时任务调度,TimerTask也是；<br>这个监听器主要是有两个方法contextInitialized和contextDestroyed,直接写一个类实现这个监听器，然后就可以重写这两个方法；</p>
@@ -137,7 +137,7 @@
 </ul>
 </li>
 </ul>
-<h6 id="第二类监听器"><a href="#第二类监听器" class="headerlink" title="第二类监听器"></a>第二类监听器</h6><ul>
+<h6 id="第二类监听器"><a href="#第二类监听器" class="headerlink" title="第二类监听器"></a><strong>第二类监听器</strong></h6><ul>
 <li>二类：监听三个域对象的属性变更的监听器(属性添加,移除,替换):<ul>
 <li>ServletContextAttributeListener</li>
 <li>HttpSessionAttributeListener</li>
@@ -145,7 +145,7 @@
 </ul>
 </li>
 </ul>
-<h6 id="第三类监听器"><a href="#第三类监听器" class="headerlink" title="第三类监听器"></a>第三类监听器</h6><ul>
+<h6 id="第三类监听器"><a href="#第三类监听器" class="headerlink" title="第三类监听器"></a><strong>第三类监听器</strong></h6><ul>
 <li><p>三类：监听HttpSession中的JavaBean的状态改变(绑定,解除绑定,钝化,活化)<br>第三类监听器很特殊,不需要在web.xml中进行监听器的配置,它是作用在JavaBean上的监听器，JavaBean可以自己感知到在Session中的状态。</p>
 <ul>
 <li><p>HttpSessionBindingListener：监听HttpSession中的JavaBean的绑定和解除绑定的，主要有两个方法valueBound()和valueUnbound();</p>
@@ -155,9 +155,9 @@
 </ul>
 </li>
 </ul>
-<h6 id="对于钝化和活化的应用-优化Session"><a href="#对于钝化和活化的应用-优化Session" class="headerlink" title="对于钝化和活化的应用(优化Session):"></a>对于钝化和活化的应用(优化Session):</h6><p>先说一个场景:比如购物车，假如有1000个人，这1000个人都将商品添加到购物车中，然而他们一直没有去结算，因为结算了就会清空购物车，现在没有去结算，商品一直在购物车中，购物车一直存储在session中，这样的话服务器的内存会受到严重的影响，比较浪费内存，这时候我们就可以利用HttpSessionActivationListener这个监听器对象，监听HttpSession中的javaBean的钝化和活化，也就是监听购物车对象的钝化和活化，我们知道钝化是序列化到硬盘，这时候我们直接将购物车对象序列化（钝化）到硬盘中，硬盘的空间比内存大的多，这样购物车也不会占用内存，比较合适，等到用户想要购物车中的商品的时候，我们再给硬盘中的购物车对象进行反序列化（活化）到内存中即可，这样大大提高了内存的空间。所以我们可以将长时间不使用的session序列化到硬盘上，等到要用的时候再反序列化回来，但是我们不能直接通过正常关闭服务器来序列化session，我们可以通过配置；<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">三种配置方式：</span><br><span class="line">（<span class="number">1</span>）通过配置&lt;Context&gt;标签配置定时session序列化：在tomcat/conf/context.xml中配置&lt;Context&gt;，这种配置会让在tomcat中所有的虚拟主机和虚拟路径都会按照这个配置执行.</span><br><span class="line">（<span class="number">2</span>）在tomcat/conf/Catalina/localhost/context.xml配置&lt;Context&gt;:在tomcat中的localhost虚拟主机中的所有虚拟路径按照这个配置执行.</span><br><span class="line">（<span class="number">3</span>）在当前的工程下的META-INF/context.xml配置&lt;Context&gt;:当前这个工程按照配置执行.</span><br></pre></td></tr></table></figure></p>
+<h6 id="对于钝化和活化的应用-优化Session"><a href="#对于钝化和活化的应用-优化Session" class="headerlink" title="对于钝化和活化的应用(优化Session):"></a><strong>对于钝化和活化的应用(优化Session)</strong>:</h6><p>先说一个场景:比如购物车，假如有1000个人，这1000个人都将商品添加到购物车中，然而他们一直没有去结算，因为结算了就会清空购物车，现在没有去结算，商品一直在购物车中，购物车一直存储在session中，这样的话服务器的内存会受到严重的影响，比较浪费内存，这时候我们就可以利用HttpSessionActivationListener这个监听器对象，监听HttpSession中的javaBean的钝化和活化，也就是监听购物车对象的钝化和活化，我们知道钝化是序列化到硬盘，这时候我们直接将购物车对象序列化（钝化）到硬盘中，硬盘的空间比内存大的多，这样购物车也不会占用内存，比较合适，等到用户想要购物车中的商品的时候，我们再给硬盘中的购物车对象进行反序列化（活化）到内存中即可，这样大大提高了内存的空间。所以我们可以将长时间不使用的session序列化到硬盘上，等到要用的时候再反序列化回来，但是我们不能直接通过正常关闭服务器来序列化session，我们可以通过配置；<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">三种配置方式：</span><br><span class="line">（<span class="number">1</span>）通过配置&lt;Context&gt;标签配置定时session序列化：在tomcat/conf/context.xml中配置&lt;Context&gt;，这种配置会让在tomcat中所有的虚拟主机和虚拟路径都会按照这个配置执行.</span><br><span class="line">（<span class="number">2</span>）在tomcat/conf/Catalina/localhost/context.xml配置&lt;Context&gt;:在tomcat中的localhost虚拟主机中的所有虚拟路径按照这个配置执行.</span><br><span class="line">（<span class="number">3</span>）在当前的工程下的META-INF/context.xml配置&lt;Context&gt;:当前这个工程按照配置执行.</span><br></pre></td></tr></table></figure></p>
 <p>主要的配置如下：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--maxIdleSwap="1"表示的是session一分钟不使用之后就序列化；</span></span><br><span class="line"><span class="comment">directory="sefile"表示的是序列化之后存储的文件夹是sefile文件夹；</span></span><br><span class="line"><span class="comment">--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">Context</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">Manager</span> <span class="attr">className</span>=<span class="string">"org.apache.catalina.session.PersistentManager"</span> <span class="attr">maxIdleSwap</span>=<span class="string">"1"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">Store</span> <span class="attr">className</span>=<span class="string">"org.apache.catalina.session.FileStore"</span> <span class="attr">directory</span>=<span class="string">"sefile"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">Manager</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">Context</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<h2 id="过滤器"><a href="#过滤器" class="headerlink" title="过滤器"></a>过滤器</h2><p>过滤器：可以过滤从客户端向服务器发送的请求,一般可以应用于IP的过滤，脏话过滤，自动登录，响应压缩等；使用也是很简单的，只要编写一个类实现Filter接口,然后配置一下即可；  </p>
+<h2 id="过滤器"><a href="#过滤器" class="headerlink" title="过滤器"></a><strong>过滤器</strong></h2><p>过滤器：可以过滤从客户端向服务器发送的请求,一般可以应用于IP的过滤，脏话过滤，自动登录，响应压缩等；使用也是很简单的，只要编写一个类实现Filter接口,然后配置一下即可；  </p>
 <p>FilterChain是过滤器链，过滤器链中的过滤器的执行的顺序与<filter-mapping>的配置顺序有关.<br>doFilter(request,response);–放行,放行到下一个过滤器中,如果没有下一个过滤器,到达目标资源。  </filter-mapping></p>
 <h5 id="Filter相关的配置"><a href="#Filter相关的配置" class="headerlink" title="Filter相关的配置:"></a>Filter相关的配置:</h5><p>（1）<url-pattern>的配置：</url-pattern></p>
 <ul>
@@ -173,7 +173,7 @@
 <li>INCLUDE    :包含.</li>
 <li>ERROR        :错误页面跳转.(全局错误页面)</li>
 </ul>
-<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>对于监听器，一般第一类应用的比较多，比如Spring框架中的ContextLoaderListener，加载配置文件的；<br>另外第三类的HttpSessionActivationListener钝化和活化，主要在优化session方面会有应用；<br>对于过滤器，一般在自动登录的实现和过滤脏字这种需求得时候我们需要应用到过滤器。</p>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a><strong>小结</strong></h2><p>对于监听器，一般第一类应用的比较多，比如Spring框架中的ContextLoaderListener，加载配置文件的；<br>另外第三类的HttpSessionActivationListener钝化和活化，主要在优化session方面会有应用；<br>对于过滤器，一般在自动登录的实现和过滤脏字这种需求得时候我们需要应用到过滤器。</p>
 </section>
     <!-- Tags START -->
     
