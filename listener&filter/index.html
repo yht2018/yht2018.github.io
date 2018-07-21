@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  <meta name="description" content="yht&#39;s blog">
+  <meta name="keyword" content="Java">
+  
+    <link rel="shortcut icon" href="/css/images/logo.png">
+  
+  <title>
+    
+      Hexo
+    
+  </title>
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <link href="//cdn.bootcss.com/nprogress/0.2.0/nprogress.min.css" rel="stylesheet">
+  <link href="//cdn.bootcss.com/highlight.js/9.12.0/styles/tomorrow.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/css/plugins/gitment.css">
+  <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+  <script src="//cdn.bootcss.com/geopattern/1.2.3/js/geopattern.min.js"></script>
+  <script src="//cdn.bootcss.com/nprogress/0.2.0/nprogress.min.js"></script>
+  <script src="/js/qrious.js"></script>
+<script src="/js/gitment.js"></script>
+</head>
+<div class="wechat-share">
+  <img src="/css/images/logo.png" />
+</div>
+
+  <body>
+    <header class="header fixed-header">
+  <div class="header-container">
+    <a class="home-link" href="/">
+      <div class="logo"></div>
+      <span>Hexo</span>
+    </a>
+    <ul class="right-list">
+      
+        <li class="list-item">
+          
+            <a href="/" class="item-link">Home</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/tags/" class="item-link">Tags</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/archives/" class="item-link">Archives</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/about/" class="item-link">About</a>
+          
+        </li>
+      
+    </ul>
+    <div class="menu">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </div>
+    <div class="menu-mask">
+      <ul class="menu-list">
+        
+          <li class="menu-item">
+            
+              <a href="/" class="menu-link">Home</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/tags/" class="menu-link">Tags</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/archives/" class="menu-link">Archives</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/about/" class="menu-link">About</a>
+            
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</header>
+
+    <div id="article-banner">
+  <h2></h2>
+  <p class="post-date">2018-07-21</p>
+  <div class="arrow-down">
+    <a href="javascript:;"></a>
+  </div>
+</div>
+<main class="app-body flex-box">
+  <!-- Article START -->
+  <article class="post-article">
+    <section class="markdown-content"><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>最近学习了一下web中比较重要的两个知识点，一个是监听器，另一个就是过滤器。估在此详细的简单介绍一下，也是自己记录的一个方式。</p>
+<h2 id="监听器"><a href="#监听器" class="headerlink" title="监听器"></a>监听器</h2><p>监听器就是java的一个类，用来监听其他java类的状态变化，主要应用在图形化界面中比较多: 比如GUI,Android.</p>
+<p>监听器的术语：</p>
+<ul>
+<li>事件源:指的是被监听的对象.(汽车)</li>
+<li>监听器:指的是监听的对象.(报警器)</li>
+<li>事件源与监听器的绑定:就是在汽车上安装报警器.</li>
+<li>事件:指的是事件源的改变.(踹汽车一脚)—主要的功能获得事件源对象.  </li>
+</ul>
+<h2 id="WEB中的监听器共有三类八种-监听三个域对象"><a href="#WEB中的监听器共有三类八种-监听三个域对象" class="headerlink" title="WEB中的监听器共有三类八种(监听三个域对象)"></a>WEB中的监听器共有三类八种(监听三个域对象)</h2><p>我们知道web中有三个域对象，分别为servletContext上下文对象，这个对象是贯穿整个项目的，一个是HttpSession域对象，这个对象的作用域是一次会话多次请求的，最后一个就是ServletRequest对象，它的作用域范围更小，作用范围是一次请求；</p>
+<ul>
+<li>事件源：Servlet中的三个域对象.ServletContext,HttpSession,ServletRequest.</li>
+<li>监听器：自定义类实现8个接口.</li>
+<li>事件源和监听器的绑定：配置.</li>
+</ul>
+<h6 id="第一类监听器"><a href="#第一类监听器" class="headerlink" title="第一类监听器"></a>第一类监听器</h6><ul>
+<li><p>一类：监听三个域对象的创建和销毁的监听器:</p>
+<ul>
+<li><p>ServletContextListener<br>ServletContextListener主要监听的是servletContext上下文对象的创建和销毁，servletContext对象是在服务器启动的时候就创建了，在服务器关闭或者项目移除的时候就会被销毁，servletContext对象是作用于整个项目的；所以一般在企业中它的应用是加载框架的配置文件，比如Spring框架中的ContextLoaderListener，这个加载配置文件的监听器就是实现的ServletContextListener监听器;再比如定时任务调度,TimerTask也是；<br>这个监听器主要是有两个方法contextInitialized和contextDestroyed,直接写一个类实现这个监听器，然后就可以重写这两个方法；</p>
+</li>
+<li><p>HttpSessionListener<br>HttpSessionListener主要监听的是HttpSession对象的创建和销毁的，HttpSession对象是在服务器第一次调用getSession方法的时候创建的，在浏览器关闭或者session30分钟过期之后或者非正常关闭服务器才会销毁；<br>访问Servlet不会创建Session,访问JSP会创建Session,访问html不会创建Session;<br>这个监听器主要是有两个方法sessionCreated和sessionDestroyed,直接写一个类实现这个监听器，然后就可以重写这两个方法；</p>
+<ul>
+<li>ServletRequestListener<br>ServletRequestListener主要监听的是ServletRequest对象的创建和销毁，ServletRequest对象是在浏览器第一次向服务器发送请求的时候创建的，在请求发送完毕之后销毁的；<br>访问一个Servlet会创建request对象，访问一个JSP会创建request对象，访问一个HTML会创建request对象，因为不管访问什么，就算访问的资源不存在，访问servlet,jsp,html也好，它们都是一次请求，只要是客户端向服务器端发送了请求，就是会有request域对象，就算请求的地址是错误的，那也是会有request域对象的。<br>这个监听器主要是有两个方法requestInitialized和requestDestroyed,直接写一个类实现这个监听器，然后就可以重写这两个方法；</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h6 id="第二类监听器"><a href="#第二类监听器" class="headerlink" title="第二类监听器"></a>第二类监听器</h6><ul>
+<li>二类：监听三个域对象的属性变更的监听器(属性添加,移除,替换):<ul>
+<li>ServletContextAttributeListener</li>
+<li>HttpSessionAttributeListener</li>
+<li>ServletRequestAttributeListener<br>这三类监听器主要监听ServletContext、HttpSession、ServletRequest这三个对象属性的添加、移除和替换的，实现各自的监听器之后，会有三个方法需要去实现:attributeAdded、attributeRemoved、attributeReplaced;</li>
+</ul>
+</li>
+</ul>
+<h6 id="第三类监听器"><a href="#第三类监听器" class="headerlink" title="第三类监听器"></a>第三类监听器</h6><ul>
+<li><p>三类：监听HttpSession中的JavaBean的状态改变(绑定,解除绑定,钝化,活化)<br>第三类监听器很特殊,不需要在web.xml中进行监听器的配置,它是作用在JavaBean上的监听器，JavaBean可以自己感知到在Session中的状态。</p>
+<ul>
+<li><p>HttpSessionBindingListener：监听HttpSession中的JavaBean的绑定和解除绑定的，主要有两个方法valueBound()和valueUnbound();</p>
+</li>
+<li><p>HttpSessionActivationListener：监听HttpSession中的JavaBean的钝化和活化的,主要有两个方法sessionDidActivate()–活化（反序列化)和sessionWillPassivate()–钝化（序列化到硬盘）;服务器正常关闭是序列化到硬盘，反序列化是再重新启动就可以实现反序列化；  </p>
+</li>
+</ul>
+</li>
+</ul>
+<h6 id="对于钝化和活化的应用-优化Session"><a href="#对于钝化和活化的应用-优化Session" class="headerlink" title="对于钝化和活化的应用(优化Session):"></a>对于钝化和活化的应用(优化Session):</h6><p>先说一个场景:比如购物车，假如有1000个人，这1000个人都将商品添加到购物车中，然而他们一直没有去结算，因为结算了就会清空购物车，现在没有去结算，商品一直在购物车中，购物车一直存储在session中，这样的话服务器的内存会受到严重的影响，比较浪费内存，这时候我们就可以利用HttpSessionActivationListener这个监听器对象，监听HttpSession中的javaBean的钝化和活化，也就是监听购物车对象的钝化和活化，我们知道钝化是序列化到硬盘，这时候我们直接将购物车对象序列化（钝化）到硬盘中，硬盘的空间比内存大的多，这样购物车也不会占用内存，比较合适，等到用户想要购物车中的商品的时候，我们再给硬盘中的购物车对象进行反序列化（活化）到内存中即可，这样大大提高了内存的空间。所以我们可以将长时间不使用的session序列化到硬盘上，等到要用的时候再反序列化回来，但是我们不能直接通过正常关闭服务器来序列化session，我们可以通过配置；<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">三种配置方式：</span><br><span class="line">（<span class="number">1</span>）通过配置&lt;Context&gt;标签配置定时session序列化：在tomcat/conf/context.xml中配置&lt;Context&gt;，这种配置会让在tomcat中所有的虚拟主机和虚拟路径都会按照这个配置执行.</span><br><span class="line">（<span class="number">2</span>）在tomcat/conf/Catalina/localhost/context.xml配置&lt;Context&gt;:在tomcat中的localhost虚拟主机中的所有虚拟路径按照这个配置执行.</span><br><span class="line">（<span class="number">3</span>）在当前的工程下的META-INF/context.xml配置&lt;Context&gt;:当前这个工程按照配置执行.</span><br></pre></td></tr></table></figure></p>
+<p>主要的配置如下：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--maxIdleSwap="1"表示的是session一分钟不使用之后就序列化；</span></span><br><span class="line"><span class="comment">directory="sefile"表示的是序列化之后存储的文件夹是sefile文件夹；</span></span><br><span class="line"><span class="comment">--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">Context</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">Manager</span> <span class="attr">className</span>=<span class="string">"org.apache.catalina.session.PersistentManager"</span> <span class="attr">maxIdleSwap</span>=<span class="string">"1"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">Store</span> <span class="attr">className</span>=<span class="string">"org.apache.catalina.session.FileStore"</span> <span class="attr">directory</span>=<span class="string">"sefile"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">Manager</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">Context</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="过滤器"><a href="#过滤器" class="headerlink" title="过滤器"></a>过滤器</h2><p>过滤器：可以过滤从客户端向服务器发送的请求,一般可以应用于IP的过滤，脏话过滤，自动登录，响应压缩等；使用也是很简单的，只要编写一个类实现Filter接口,然后配置一下即可；  </p>
+<p>FilterChain是过滤器链，过滤器链中的过滤器的执行的顺序与<filter-mapping>的配置顺序有关.<br>doFilter(request,response);–放行,放行到下一个过滤器中,如果没有下一个过滤器,到达目标资源。  </filter-mapping></p>
+<h5 id="Filter相关的配置"><a href="#Filter相关的配置" class="headerlink" title="Filter相关的配置:"></a>Filter相关的配置:</h5><p>（1）<url-pattern>的配置：</url-pattern></p>
+<ul>
+<li>完全路径匹配        ：以 / 开始  /demo4/demo1.jsp</li>
+<li>目录匹配            ：以 / 开始 以 <em> 结束.  /</em>  /demo1/*</li>
+<li>扩展名匹配            ：不能以 / 开始 以 <em> 开始.  </em>.do  *.action    </li>
+</ul>
+<p>（2）<servlet-name>的配置:根据Servlet的名称拦截Servlet.    </servlet-name></p>
+<p>（3）<dispatcher>的配置:</dispatcher></p>
+<ul>
+<li>REQUEST    :默认值.</li>
+<li>FORWARD    :转发.可以拦截转发。</li>
+<li>INCLUDE    :包含.</li>
+<li>ERROR        :错误页面跳转.(全局错误页面)</li>
+</ul>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>对于监听器，一般第一类应用的比较多，比如Spring框架中的ContextLoaderListener，加载配置文件的；<br>另外第三类的HttpSessionActivationListener钝化和活化，主要在优化session方面会有应用；<br>对于过滤器，一般在自动登录的实现和过滤脏字这种需求得时候我们需要应用到过滤器。</p>
+</section>
+    <!-- Tags START -->
+    
+    <!-- Tags END -->
+    <!-- 打赏 START -->
+    
+    <!-- 打赏 END -->
+    <!-- 二维码 START -->
+    
+    <!-- 二维码 END -->
+    
+      <!-- No Comment -->
+    
+  </article>
+  <!-- Article END -->
+  <!-- Catalog START -->
+  
+  <!-- Catalog END -->
+</main>
+
+<script>
+  (function () {
+    var url = 'http://yoursite.com/listener&amp;filter/';
+    var banner = ''
+    if (banner !== '' && banner !== 'undefined' && banner !== 'null') {
+      $('#article-banner').css({
+        'background-image': 'url(' + banner + ')'
+      })
+    } else {
+      $('#article-banner').geopattern(url)
+    }
+    $('.header').removeClass('fixed-header')
+
+     // error image
+    $(".markdown-content img").on('error', function() {
+      $(this).attr('src', 'http://file.muyutech.com/error-img.png')
+      $(this).css({
+        'cursor': 'default'
+      })
+    })
+
+    // zoom image
+    $(".markdown-content img").on('click', function() {
+      var src = $(this).attr('src')
+      if (src !== 'http://file.muyutech.com/error-img.png') {
+        var imageW = $(this).width()
+        var imageH = $(this).height()
+        
+        var zoom = ($(window).width() * 0.95 / imageW).toFixed(2)
+        zoom = zoom < 1 ? 1 : zoom
+        zoom = zoom > 2 ? 2 : zoom
+        var transY = (($(window).height() - imageH) / 2).toFixed(2)
+
+        $('body').append('<div class="image-view-wrap"><div class="image-view-inner"><img src="'+ src +'" /></div></div>')
+        $('.image-view-wrap').addClass('wrap-active')
+        $('.image-view-wrap img').css({
+          'width': `${imageW}`,
+          'transform': `translate3d(0, ${transY}px, 0) scale3d(${zoom}, ${zoom}, 1)`
+        })
+        $('html').css('overflow', 'hidden')
+
+        $('.image-view-wrap').on('click', function() {
+          $(this).remove()
+          $('html').attr('style', '')
+        })
+      }
+    })
+
+    // qrcode
+    var qr = new QRious({
+      element: document.getElementById('share-qrcode'),
+      value: document.location.href
+    });
+
+    // gitment
+    var gitmentConfig = "yanm1ng";
+    if (gitmentConfig !== 'undefined') {
+      var gitment = new Gitment({
+        id: "",
+        owner: "yanm1ng",
+        repo: "yanm1ng.github.io",
+        oauth: {
+          client_id: "0f87e490e00ee3fd87ef",
+          client_secret: "4a9d2b148e7971c2201ad12131ce8bf8159ccd2e"
+        },
+        theme: {
+          render(state, instance) {
+            const container = document.createElement('div')
+            container.lang = "en-US"
+            container.className = 'gitment-container gitment-root-container'
+            container.appendChild(instance.renderHeader(state, instance))
+            container.appendChild(instance.renderEditor(state, instance))
+            container.appendChild(instance.renderComments(state, instance))
+            container.appendChild(instance.renderFooter(state, instance))
+            return container;
+          }
+        }
+      })
+      gitment.render(document.getElementById('comments'))
+    }
+  })();
+</script>
+
+    <div class="scroll-top">
+  <span class="arrow-icon"></span>
+</div>
+    <footer class="app-footer">
+  <p class="copyright">
+    &copy; 2018 | Proudly powered by <a href="https://hexo.io" target="_blank">Hexo</a>
+    <br>
+    Theme by <a href="https://github.com/yanm1ng">yanm1ng</a>
+  </p>
+</footer>
+
+<script>
+  function async(u, c) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+</script>
+<script>
+  async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+    FastClick.attach(document.body);
+  })
+</script>
+
+<script>
+  var hasLine = 'true';
+  async("//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js", function(){
+    $('figure pre').each(function(i, block) {
+      var figure = $(this).parents('figure');
+      if (hasLine === 'false') {
+        figure.find('.gutter').hide();
+      }
+      var lang = figure.attr('class').split(' ')[1] || 'code';
+      var codeHtml = $(this).html();
+      var codeTag = document.createElement('code');
+      codeTag.className = lang;
+      codeTag.innerHTML = codeHtml;
+      $(this).attr('class', '').empty().html(codeTag);
+      figure.attr('data-lang', lang.toUpperCase());
+      hljs.highlightBlock(block);
+    });
+  })
+</script>
+<!-- Baidu Tongji -->
+
+<script src="/js/script.js"></script>
+  </body>
+</html>
