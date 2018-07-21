@@ -130,10 +130,8 @@
 <li><p>ServletContextListener<br>ServletContextListener主要监听的是servletContext上下文对象的创建和销毁，servletContext对象是在服务器启动的时候就创建了，在服务器关闭或者项目移除的时候就会被销毁，servletContext对象是作用于整个项目的；所以一般在企业中它的应用是加载框架的配置文件，比如Spring框架中的ContextLoaderListener，这个加载配置文件的监听器就是实现的ServletContextListener监听器;再比如定时任务调度,TimerTask也是；<br>这个监听器主要是有两个方法contextInitialized和contextDestroyed,直接写一个类实现这个监听器，然后就可以重写这两个方法；</p>
 </li>
 <li><p>HttpSessionListener<br>HttpSessionListener主要监听的是HttpSession对象的创建和销毁的，HttpSession对象是在服务器第一次调用getSession方法的时候创建的，在浏览器关闭或者session30分钟过期之后或者非正常关闭服务器才会销毁；<br>访问Servlet不会创建Session,访问JSP会创建Session,访问html不会创建Session;<br>这个监听器主要是有两个方法sessionCreated和sessionDestroyed,直接写一个类实现这个监听器，然后就可以重写这两个方法；</p>
-<ul>
-<li>ServletRequestListener<br>ServletRequestListener主要监听的是ServletRequest对象的创建和销毁，ServletRequest对象是在浏览器第一次向服务器发送请求的时候创建的，在请求发送完毕之后销毁的；<br>访问一个Servlet会创建request对象，访问一个JSP会创建request对象，访问一个HTML会创建request对象，因为不管访问什么，就算访问的资源不存在，访问servlet,jsp,html也好，它们都是一次请求，只要是客户端向服务器端发送了请求，就是会有request域对象，就算请求的地址是错误的，那也是会有request域对象的。<br>这个监听器主要是有两个方法requestInitialized和requestDestroyed,直接写一个类实现这个监听器，然后就可以重写这两个方法；</li>
-</ul>
 </li>
+<li>ServletRequestListener<br>ServletRequestListener主要监听的是ServletRequest对象的创建和销毁，ServletRequest对象是在浏览器第一次向服务器发送请求的时候创建的，在请求发送完毕之后销毁的；<br>访问一个Servlet会创建request对象，访问一个JSP会创建request对象，访问一个HTML会创建request对象，因为不管访问什么，就算访问的资源不存在，访问servlet,jsp,html也好，它们都是一次请求，只要是客户端向服务器端发送了请求，就是会有request域对象，就算请求的地址是错误的，那也是会有request域对象的。<br>这个监听器主要是有两个方法requestInitialized和requestDestroyed,直接写一个类实现这个监听器，然后就可以重写这两个方法；</li>
 </ul>
 </li>
 </ul>
@@ -159,14 +157,14 @@
 <p>主要的配置如下：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--maxIdleSwap="1"表示的是session一分钟不使用之后就序列化；</span></span><br><span class="line"><span class="comment">directory="sefile"表示的是序列化之后存储的文件夹是sefile文件夹；</span></span><br><span class="line"><span class="comment">--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">Context</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">Manager</span> <span class="attr">className</span>=<span class="string">"org.apache.catalina.session.PersistentManager"</span> <span class="attr">maxIdleSwap</span>=<span class="string">"1"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">Store</span> <span class="attr">className</span>=<span class="string">"org.apache.catalina.session.FileStore"</span> <span class="attr">directory</span>=<span class="string">"sefile"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">Manager</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">Context</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
 <h2 id="过滤器"><a href="#过滤器" class="headerlink" title="过滤器"></a><strong>过滤器</strong></h2><p>过滤器：可以过滤从客户端向服务器发送的请求,一般可以应用于IP的过滤，脏话过滤，自动登录，响应压缩等；使用也是很简单的，只要编写一个类实现Filter接口,然后配置一下即可；  </p>
 <p>FilterChain是过滤器链，过滤器链中的过滤器的执行的顺序与<filter-mapping>的配置顺序有关.<br>doFilter(request,response);–放行,放行到下一个过滤器中,如果没有下一个过滤器,到达目标资源。  </filter-mapping></p>
-<h5 id="Filter相关的配置"><a href="#Filter相关的配置" class="headerlink" title="Filter相关的配置:"></a>Filter相关的配置:</h5><p>（1）<url-pattern>的配置：</url-pattern></p>
+<h5 id="Filter相关的配置"><a href="#Filter相关的配置" class="headerlink" title="Filter相关的配置:"></a>Filter相关的配置:</h5><p>（1）<code>&lt;url-pattern&gt;</code>的配置：</p>
 <ul>
 <li>完全路径匹配        ：以 / 开始  /demo4/demo1.jsp</li>
 <li>目录匹配            ：以 / 开始 以 <em> 结束.  /</em>  /demo1/*</li>
 <li>扩展名匹配            ：不能以 / 开始 以 <em> 开始.  </em>.do  *.action    </li>
 </ul>
-<p>（2）<servlet-name>的配置:根据Servlet的名称拦截Servlet.    </servlet-name></p>
-<p>（3）<dispatcher>的配置:</dispatcher></p>
+<p>（2）<code>&lt;servlet-name&gt;</code>的配置:根据Servlet的名称拦截Servlet.    </p>
+<p>（3）<code>&lt;dispatcher&gt;</code>的配置:</p>
 <ul>
 <li>REQUEST    :默认值.</li>
 <li>FORWARD    :转发.可以拦截转发。</li>
