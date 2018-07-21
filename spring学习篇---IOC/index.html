@@ -109,7 +109,7 @@
 <main class="app-body flex-box">
   <!-- Article START -->
   <article class="post-article">
-    <section class="markdown-content"><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>最近公司的一个新项目刚完事，趁着几天休息时间准备学习点东西，想学点新技术，其实自己还有很多东西只是停留在应用上，其实对于其他方面都不了解，于是就框架着手，整体的学习一下Spring，了解spring这个框架更多的内容，本篇先详细介绍Spring的IOC，它也是Spring的核心。</p>
+    <section class="markdown-content"><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>最近公司的一个新项目刚完事，趁着几天休息时间准备学习点东西，想学点新技术，其实自己还有很多东西只是停留在应用上，其实对于其他方面都不了解，于是就框架着手，整体的学习一下Spring，了解spring这个框架更多的内容，本篇先详细介绍Spring的IOC，它也是Spring的核心。<br><a id="more"></a></p>
 <h2 id="Spring介绍"><a href="#Spring介绍" class="headerlink" title="Spring介绍"></a>Spring介绍</h2><p>Spring是一个开源的轻量级开发应用框架，<br>Spring是一个主要解决了对象依赖问题及现有技术的整合问题，同时彻底解决了事务方面的问题。<br>学习spring，主要是学习IOC,DI,AOP,声明式事务。</p>
 <h2 id="Spring工作原理"><a href="#Spring工作原理" class="headerlink" title="Spring工作原理"></a>Spring工作原理</h2><p>所以Spring的工作原理是工厂加解析加反射原理：<br><img src="http://p37r4tmp8.bkt.clouddn.com/blog/180430/b5Hlb30gDb.png?imageslim" alt="mark"><br>（1）工厂指的是使用了Spring之后对象全部都是从工厂中获取的了，而且工厂中创建的对象是单例的，不管是哪个人需要使用这个工厂中的对象，就直接去工厂中拿即可，就不会像之前一样每次谁调用这个对象就要new一次这个对象，这样new了很多次。所以有了工厂之后所有的对象只会创建一次，不会创建多次了，这也是单例的特点。<br>（2）解析指的是使用dom4j解析Spring的配置文件，获得一些配置信息。<br>（3）反射指的是我们可以根据解析过后获取的class通过反射来获取到我们需要使用的对象。<br>但是注意这些过程，路德，约瀚森这个人已经给我们做好了，在Spring已经写好了，他就是Spring之父。</p>
 <h5 id="大致过程："><a href="#大致过程：" class="headerlink" title="大致过程："></a>大致过程：</h5><p>（1） 创建Spring的配置文件<br>（2）编写配置文件（加入一些对象的配置信息）<br>（3）Spring本身就一个大工厂(内部可以认为是一个工厂设计模式来实现)，再配合xml解析+反射技术，就可以根据用户的配置信息，生成相应的对象<br>原先我们是需要读取解析配置文件的（一般使用dom4j），然后反射，生成对象，这些工作之前我们是需要做的，但是现在不需要了，Spring已经给我们做好了，所以我们现在就直接获取工厂对象，然后获得我们需要的对象即可。<br>（4）提供一个getBean()方法，供用户直接从工厂中获取相应对象<br>（5）再直接操作从工厂中获取的对象</p>
