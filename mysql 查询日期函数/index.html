@@ -109,7 +109,7 @@
 <main class="app-body flex-box">
   <!-- Article START -->
   <article class="post-article">
-    <section class="markdown-content"><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>最近在项目中有一个这样的需求，需要展示环比和同比的数据，在项目中环比是上个月的数据，同比是去年同月的数据。所以需要我查询当月的时候，除此之外查询上个月的数据和去年同月的数据，这就涉及到mysql中怎么用sql表示上个月和去年同月的写法了。所以在此写篇博客记录一下。<br><a id="more"></a></p>
+    <section class="markdown-content"><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a><strong>前言</strong></h2><p>最近在项目中有一个这样的需求，需要展示环比和同比的数据，在项目中环比是上个月的数据，同比是去年同月的数据。所以需要我查询当月的时候，除此之外查询上个月的数据和去年同月的数据，这就涉及到mysql中怎么用sql表示上个月和去年同月的写法了。所以在此写篇博客记录一下。<br><a id="more"></a></p>
 <h2 id="查询日期是当天的数据，各种格式"><a href="#查询日期是当天的数据，各种格式" class="headerlink" title="查询日期是当天的数据，各种格式"></a>查询日期是当天的数据，各种格式</h2><h5 id="年月日-时分秒的格式"><a href="#年月日-时分秒的格式" class="headerlink" title="年月日 时分秒的格式"></a>年月日 时分秒的格式</h5><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="keyword">now</span>();</span><br></pre></td></tr></table></figure>
 <p>最后的结果是2018-04-24 17:35:57  </p>
 <h5 id="年月日的格式"><a href="#年月日的格式" class="headerlink" title="年月日的格式"></a>年月日的格式</h5><p>所以我们明确了now()最后的格式是yyyy-MM-dd hh:mm:ss的类型，但是有的时候我们并不需要时分秒，怎么在mysql中只获取到年月日，有两种方式:</p>
