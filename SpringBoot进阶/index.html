@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  <meta name="description" content="yht&#39;s blog">
+  <meta name="keyword" content="Java">
+  
+    <link rel="shortcut icon" href="/css/images/logo.png">
+  
+  <title>
+    
+      SpringBoot进阶 | Hexo
+    
+  </title>
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <link href="//cdn.bootcss.com/nprogress/0.2.0/nprogress.min.css" rel="stylesheet">
+  <link href="//cdn.bootcss.com/highlight.js/9.12.0/styles/tomorrow.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/css/plugins/gitment.css">
+  <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+  <script src="//cdn.bootcss.com/geopattern/1.2.3/js/geopattern.min.js"></script>
+  <script src="//cdn.bootcss.com/nprogress/0.2.0/nprogress.min.js"></script>
+  <script src="/js/qrious.js"></script>
+<script src="/js/gitment.js"></script>
+</head>
+<div class="wechat-share">
+  <img src="/css/images/logo.png" />
+</div>
+
+  <body>
+    <header class="header fixed-header">
+  <div class="header-container">
+    <a class="home-link" href="/">
+      <div class="logo"></div>
+      <span>Hexo</span>
+    </a>
+    <ul class="right-list">
+      
+        <li class="list-item">
+          
+            <a href="/" class="item-link">Home</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/tags/" class="item-link">Tags</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/archives/" class="item-link">Archives</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/about/" class="item-link">About</a>
+          
+        </li>
+      
+    </ul>
+    <div class="menu">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </div>
+    <div class="menu-mask">
+      <ul class="menu-list">
+        
+          <li class="menu-item">
+            
+              <a href="/" class="menu-link">Home</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/tags/" class="menu-link">Tags</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/archives/" class="menu-link">Archives</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/about/" class="menu-link">About</a>
+            
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</header>
+
+    <div id="article-banner">
+  <h2>SpringBoot进阶</h2>
+  <p class="post-date">2018-08-03</p>
+  <div class="arrow-down">
+    <a href="javascript:;"></a>
+  </div>
+</div>
+<main class="app-body flex-box">
+  <!-- Article START -->
+  <article class="post-article">
+    <section class="markdown-content"><h2 id="表单验证【-Valid-】"><a href="#表单验证【-Valid-】" class="headerlink" title="表单验证【==@Valid==】"></a>表单验证【==@Valid==】</h2><ul>
+<li>举一个例子：比如添加的时候18岁以下的不能添加入表：<br>对于年龄我们需要在实体类中加上@Min注解，表明值为18,还有标明错误的信息；<br>然后对于添加的时候方法的参数上需要加一个@Valid的注解，标明是表单验证，错误的提示信息是存储在BindingResult中的；<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Entity</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">People</span> <span class="keyword">implements</span> <span class="title">Serializable</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">long</span> serialVersionUID = <span class="number">1453075343688340526L</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Id</span></span><br><span class="line">    <span class="meta">@GeneratedValue</span></span><br><span class="line">    <span class="keyword">private</span> Integer id;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="keyword">private</span> String sex;</span><br><span class="line">    <span class="comment">//对年龄进行18岁以下的校验。</span></span><br><span class="line">    <span class="meta">@Min</span>(value = <span class="number">18</span>,message = <span class="string">"18岁以下不录入"</span>)</span><br><span class="line">    <span class="keyword">private</span> Integer age;</span><br><span class="line">    <span class="comment">//get、set方法省略</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//年龄为18岁以下的不能存库</span></span><br><span class="line"><span class="meta">@GetMapping</span>(value=<span class="string">"/createPeople"</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> People <span class="title">createPeople</span><span class="params">(@Valid People people, BindingResult bindingResult)</span></span>&#123;</span><br><span class="line">    <span class="comment">//校验表单，需要对传入的对象加上@Valid注解，然后校验完后的结果有无错误都是存储在BindingResult这个对象中的</span></span><br><span class="line">    <span class="keyword">if</span>(bindingResult.hasErrors()) &#123;</span><br><span class="line">        <span class="comment">//打印错误的日志信息，并且返回为空</span></span><br><span class="line">        log.info(bindingResult.getFieldError().getDefaultMessage());</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    peopleRepository.save(people);</span><br><span class="line">    <span class="keyword">return</span> people;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>使用postman测试：<br>如果输入的年龄是18岁以下，那么返回的是空，控制台会打印日志，错误的提示：<br><img src="http://p37r4tmp8.bkt.clouddn.com/blog/180906/kkkdcjhdlD.png?imageslim" alt="mark"><br><img src="http://p37r4tmp8.bkt.clouddn.com/blog/180906/K6KdID1fAg.png?imageslim" alt="mark"><br>如果输入的年龄是大于等于18以上的，那么返回的数据对象，展示的格式是json的格式：<br><img src="http://p37r4tmp8.bkt.clouddn.com/blog/180906/3cIJbD4jgH.png?imageslim" alt="mark"></p>
+</li>
+<li><p>Bean Validation 中的 constraint   </p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">@Null   被注释的元素必须为 null     </span><br><span class="line">@NotNull    被注释的元素必须不为 null     </span><br><span class="line">@AssertTrue     被注释的元素必须为 true     </span><br><span class="line">@AssertFalse    被注释的元素必须为 false     </span><br><span class="line">@Min(value)     被注释的元素必须是一个数字，其值必须大于等于指定的最小值     </span><br><span class="line">@Max(value)     被注释的元素必须是一个数字，其值必须小于等于指定的最大值     </span><br><span class="line">@DecimalMin(value)  被注释的元素必须是一个数字，其值必须大于等于指定的最小值     </span><br><span class="line">@DecimalMax(value)  被注释的元素必须是一个数字，其值必须小于等于指定的最大值     </span><br><span class="line">@Size(max=, min=)   被注释的元素的大小必须在指定的范围内     </span><br><span class="line">@Digits (integer, fraction)     被注释的元素必须是一个数字，其值必须在可接受的范围内     </span><br><span class="line">@Past   被注释的元素必须是一个过去的日期     </span><br><span class="line">@Future     被注释的元素必须是一个将来的日期</span><br><span class="line">@Pattern(regex=,flag=)  被注释的元素必须符合指定的正则表达式     </span><br><span class="line">@NotBlank(message =)   验证字符串非null，且长度必须大于0     </span><br><span class="line">@Email  被注释的元素必须是电子邮箱地址     </span><br><span class="line">@Length(min=,max=)  被注释的字符串的大小必须在指定的范围内     </span><br><span class="line">@NotEmpty   被注释的字符串的必须非空     </span><br><span class="line">@Range(min=,max=,message=)  被注释的元素必须在合适的范围内</span><br><span class="line">@NotNull</span><br><span class="line">@DecimalMin(value = "0.01", inclusive = false)//大于0.01，不包含0.01</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="aop统一处理请求日志："><a href="#aop统一处理请求日志：" class="headerlink" title="aop统一处理请求日志："></a>aop统一处理请求日志：</h2><h5 id="aop"><a href="#aop" class="headerlink" title="aop:"></a>aop:</h5><p>aop是一种编程范式，与语言无关，是一种编程思想，我们知道面向对象关注的是将需求功能垂直划分为不同的，并且相对独立的，他会封装为良好的类，并且让他们有自己的行为；<br>aop利用横切的技术将面向对象构建的庞大的类的体系进行水平的切割，并且将影响到多个类的公共行为封装成一个可重用的模块，这个模块称为切面，就是将通用的逻辑从业务逻辑中分离出来；  </p>
+<p>比如正常的向面向对象的那种思维方式处理请求是这样的：<br><img src="http://p37r4tmp8.bkt.clouddn.com/blog/180906/0c8jBbim3a.png?imageslim" alt="mark"><br>如果使用aop横切技术，处理请求的方式就变化了，他是把处理HTTPRequest请求和处理数据库的请求类似的部分都横切一下处理，这样不至于类似的公共行为重复多次。<br><img src="http://p37r4tmp8.bkt.clouddn.com/blog/180906/mkfd6IDB2l.png?imageslim" alt="mark"></p>
+<h5 id="aop入门"><a href="#aop入门" class="headerlink" title="aop入门"></a>aop入门</h5><p>在girlList方法执行前后各打印日志信息：</p>
+<ul>
+<li><p>引入jar包：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-aop<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>切面类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Aspect</span></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RequestAspect</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> Logger log = LoggerFactory.getLogger(Logger.class);</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Before</span>(value = <span class="string">"execution(public * com.yht.controller.GirlController.girlList(..))"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">beforeRequest</span><span class="params">()</span></span>&#123;</span><br><span class="line">        log.info(<span class="string">"方法前执行"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@After</span>(value=<span class="string">"execution(public * com.yht.controller.GirlController.girlList(..))"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">afterRequest</span><span class="params">()</span></span>&#123;</span><br><span class="line">        log.info(<span class="string">"方法后执行"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>运行结果：<br><img src="http://p37r4tmp8.bkt.clouddn.com/blog/180906/id1cEfB3CD.png?imageslim" alt="mark"></p>
+</li>
+</ul>
+<h5 id="aop记录Http请求"><a href="#aop记录Http请求" class="headerlink" title="aop记录Http请求"></a>aop记录Http请求</h5><p>上面的入门发现像这种(value = “execution(public * com.yht.controller.GirlController.girlList(..))都是重复的代码，我们下面使用aop记录Http请求的时候简化一下代码；</p>
+<ul>
+<li><p>切面类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Aspect</span></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RequestAspect</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> Logger log = LoggerFactory.getLogger(Logger.class);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//将通用的切点提取出来,GirlController下的所有的方法</span></span><br><span class="line">    <span class="meta">@Pointcut</span>(value = <span class="string">"execution(public * com.yht.controller.GirlController.*(..))"</span> )</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">log</span><span class="params">()</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//记录http请求：url  , method  , ip  ,类方法  ，参数；</span></span><br><span class="line">    <span class="meta">@Before</span>(value = <span class="string">"log()"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doBefore</span><span class="params">(JoinPoint joinPoint)</span></span>&#123;</span><br><span class="line">        ServletRequestAttributes requestAttributes = (ServletRequestAttributes)RequestContextHolder.getRequestAttributes();</span><br><span class="line">        HttpServletRequest request = requestAttributes.getRequest();</span><br><span class="line">        <span class="comment">//url</span></span><br><span class="line">        log.info(<span class="string">"url=&#123;&#125;"</span>,request.getRequestURL());</span><br><span class="line">        <span class="comment">//method</span></span><br><span class="line">        log.info(<span class="string">"method=&#123;&#125;"</span>,request.getMethod());</span><br><span class="line">        <span class="comment">//ip</span></span><br><span class="line">        log.info(<span class="string">"ip=&#123;&#125;"</span>,request.getRemoteAddr());</span><br><span class="line">        <span class="comment">//类方法</span></span><br><span class="line">        log.info(<span class="string">"classMethod=&#123;&#125;"</span>,joinPoint.getSignature().getDeclaringType()+<span class="string">"."</span>+joinPoint.getSignature().getName());</span><br><span class="line">        <span class="comment">//参数</span></span><br><span class="line">        log.info(<span class="string">"args=&#123;&#125;"</span>,joinPoint.getArgs());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@After</span>(value = <span class="string">"log()"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doAfter</span><span class="params">()</span></span>&#123;</span><br><span class="line">        log.info(<span class="string">"方法后执行"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//返回方法执行的返回值</span></span><br><span class="line">    <span class="meta">@AfterReturning</span>(returning = <span class="string">"object"</span>,value = <span class="string">"log()"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doAfterReturning</span><span class="params">(Object object)</span></span>&#123;</span><br><span class="line">        <span class="comment">//object.toString()的时候注意需要在实体类中重写toString()方法。</span></span><br><span class="line">        log.info(<span class="string">"response=&#123;&#125;"</span>,object.toString());</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>运行结果<br><img src="http://p37r4tmp8.bkt.clouddn.com/blog/180906/ejKIgKJJ6d.png?imageslim" alt="mark"></p>
+</li>
+</ul>
+<h2 id="aop统一处理异常"><a href="#aop统一处理异常" class="headerlink" title="aop统一处理异常"></a>aop统一处理异常</h2><ul>
+<li><p>异常：<br>比如我们给sex字段加上必填的校验，然后执行添加的方法会出现异常：<br><img src="http://p37r4tmp8.bkt.clouddn.com/blog/180906/79IHBCg8Da.png?imageslim" alt="mark"></p>
+</li>
+<li><p>异常信息出现在方法的返回值中：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//年龄为18岁以下的不能存库</span></span><br><span class="line">  <span class="meta">@GetMapping</span>(value=<span class="string">"/createPeople"</span>)</span><br><span class="line">  <span class="function"><span class="keyword">public</span> Object <span class="title">createPeople</span><span class="params">(@Valid People people, BindingResult bindingResult)</span></span>&#123;</span><br><span class="line">      <span class="comment">// 校验表单，需要对传入的对象加上@Valid注解，然后校验完后的结果有无错误都是存储在BindingResult这个对象中的</span></span><br><span class="line">      <span class="keyword">if</span>(bindingResult.hasErrors()) &#123;</span><br><span class="line">          <span class="comment">//返回错误的信息</span></span><br><span class="line">          <span class="keyword">return</span> bindingResult.getFieldError().getDefaultMessage();</span><br><span class="line">      &#125;</span><br><span class="line">      peopleRepository.save(people);</span><br><span class="line">      <span class="keyword">return</span> people;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>性别未输入的运行结果：<br><img src="http://p37r4tmp8.bkt.clouddn.com/blog/180906/g81fh9Icdf.png?imageslim" alt="mark"><br>性别输入的运行结果：<br><img src="http://p37r4tmp8.bkt.clouddn.com/blog/180906/e4KiI9b6HC.png?imageslim" alt="mark"><br>发现有一个问题，就是对于同样的接口，错误的运行结果和正确的运行结果的格式不一致，这样不太合理，我们需要将运行的返回结果格式固定好。</p>
+<ul>
+<li>aop处理异常<br>1：统一返回的结果类：<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Result</span>&lt;<span class="title">T</span>&gt; </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String code; <span class="comment">//状态码</span></span><br><span class="line">    <span class="keyword">private</span> String message; <span class="comment">//状态信息描述</span></span><br><span class="line">    <span class="keyword">private</span> T data; <span class="comment">//结果数据</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getCode</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> code;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setCode</span><span class="params">(String code)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.code = code;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getMessage</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> message;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setMessage</span><span class="params">(String message)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.message = message;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> T <span class="title">getData</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> data;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setData</span><span class="params">(T data)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.data = data;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>2：处理返回结果的类<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">/专门处理结果的处理类</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ResultUtil</span> </span>&#123;</span><br><span class="line">    <span class="comment">//返回结果正确的result</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Result <span class="title">generateTrueResult</span><span class="params">(Object object)</span></span>&#123;</span><br><span class="line">        Result result = <span class="keyword">new</span> Result();</span><br><span class="line">        result.setCode(<span class="string">"1"</span>);</span><br><span class="line">        result.setMessage(<span class="string">"添加成功"</span>);</span><br><span class="line">        result.setData(object);</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//返回结果错误的result</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Result <span class="title">generateFalseResult</span><span class="params">(BindingResult bindingResult)</span></span>&#123;</span><br><span class="line">        Result result = <span class="keyword">new</span> Result();</span><br><span class="line">        result.setCode(<span class="string">"0"</span>);</span><br><span class="line">        result.setMessage(bindingResult.getFieldError().getDefaultMessage());</span><br><span class="line">        result.setData(<span class="string">""</span>);</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>3：添加方法<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//统一返回结果的添加方法</span></span><br><span class="line"><span class="meta">@GetMapping</span>(value=<span class="string">"/createPeople"</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> Result <span class="title">createPeople</span><span class="params">(@Valid People people, BindingResult bindingResult)</span></span>&#123;</span><br><span class="line">    <span class="comment">// 校验表单，需要对传入的对象加上@Valid注解，然后校验完后的结果有无错误都是存储在BindingResult这个对象中的</span></span><br><span class="line">    <span class="comment">/*if(bindingResult.hasErrors()) &#123;</span></span><br><span class="line"><span class="comment">        Result result = new Result();</span></span><br><span class="line"><span class="comment">        result.setCode("0");</span></span><br><span class="line"><span class="comment">        result.setMessage(bindingResult.getFieldError().getDefaultMessage());</span></span><br><span class="line"><span class="comment">        result.setData("");</span></span><br><span class="line"><span class="comment">        return result;</span></span><br><span class="line"><span class="comment">    &#125;</span></span><br><span class="line"><span class="comment">    peopleRepository.save(people);</span></span><br><span class="line"><span class="comment">    Result result1 = new Result();</span></span><br><span class="line"><span class="comment">    result1.setCode("1");</span></span><br><span class="line"><span class="comment">    result1.setMessage("成功");</span></span><br><span class="line"><span class="comment">    result1.setData(people);</span></span><br><span class="line"><span class="comment">    return result1;*/</span></span><br><span class="line">    <span class="comment">//简化写法,创建Result类写成工具类</span></span><br><span class="line">    <span class="keyword">if</span>(bindingResult.hasErrors()) &#123;</span><br><span class="line">        <span class="keyword">return</span> ResultUtil.generateFalseResult(bindingResult);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ResultUtil.generateTrueResult(people);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>4:运行结果：<br>添加成功返回格式：<br><img src="http://p37r4tmp8.bkt.clouddn.com/blog/180906/1jJHHFIC3m.png?imageslim" alt="mark"><br>当性别为空时返回格式：<br><img src="http://p37r4tmp8.bkt.clouddn.com/blog/180906/b8BkKI1j5A.png?imageslim" alt="mark"><br>发现上面两种结果的格式相同，由code,message,data三者组成；</p>
+<ul>
+<li>优化<br>写一个枚举，对上面的code进行管理，因为错误的类型很多，所以肯定会有很多的code，所以需要写一个枚举对code进行管理，然后由此枚举类我们可以对ResultUtil类进行优化；<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//枚举类，之后所有的错误类型都可以定义在此类上</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">enum</span> CodeEnum &#123;</span><br><span class="line">    <span class="comment">//返回成功</span></span><br><span class="line">    SUCCESS(<span class="string">"1"</span>,<span class="string">"成功"</span>),</span><br><span class="line">    <span class="comment">//返回失败，性别不能为空</span></span><br><span class="line">    SEXNOTNULL(<span class="string">"0"</span>,<span class="string">"性别为空错误"</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> String code; <span class="comment">//编号</span></span><br><span class="line">    <span class="keyword">private</span> String message;<span class="comment">//信息</span></span><br><span class="line"></span><br><span class="line">    CodeEnum(String code, String message) &#123;</span><br><span class="line">        <span class="keyword">this</span>.code = code;</span><br><span class="line">        <span class="keyword">this</span>.message = message;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getCode</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> code;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setCode</span><span class="params">(String code)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.code = code;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getMessage</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> message;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setMessage</span><span class="params">(String message)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.message = message;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//优化的ResultUtil类</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ResultUtil</span> </span>&#123;</span><br><span class="line">    <span class="comment">//返回结果正确的result</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Result <span class="title">generateTrueResult</span><span class="params">(Object object)</span></span>&#123;</span><br><span class="line">        Result result = <span class="keyword">new</span> Result();</span><br><span class="line">        result.setCode(CodeEnum.SUCCESS.getCode());</span><br><span class="line">        result.setMessage(CodeEnum.SUCCESS.getMessage());</span><br><span class="line">        result.setData(object);</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//返回结果错误的result,错误的类型很多,所以就直接传入code和message即可</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Result <span class="title">generateFalseResult</span><span class="params">(String code,String message)</span></span>&#123;</span><br><span class="line">        Result result = <span class="keyword">new</span> Result();</span><br><span class="line">        result.setCode(code);</span><br><span class="line">        result.setMessage(message);</span><br><span class="line">        result.setData(<span class="string">""</span>);</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">`</span><br></pre></td></tr></table></figure>
+<ul>
+<li>举例<br>获取某女生的年龄并判断小于10，返回“应该在上小学”，大于10小于16，返回“可能在上初中”；<br>1：异常产生：<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> People <span class="title">girlAge</span><span class="params">(Integer id)</span> <span class="keyword">throws</span> Exception</span>&#123;</span><br><span class="line">    People people = peopleRepository.findOne(id);</span><br><span class="line">    Integer age = people.getAge();</span><br><span class="line">    <span class="keyword">if</span>(age&lt;<span class="number">10</span>)&#123;</span><br><span class="line">        <span class="comment">//直接将信息放异常里即可</span></span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> Exception(<span class="string">"应该在上小学"</span>);</span><br><span class="line">    &#125;<span class="keyword">else</span> <span class="keyword">if</span>(age&gt;<span class="number">10</span> &amp;&amp; age&lt;<span class="number">16</span>)&#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> Exception(<span class="string">"可能在上初中"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> people;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//判断年龄</span></span><br><span class="line"><span class="meta">@GetMapping</span>(value=<span class="string">"/girlAge/&#123;id&#125;"</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> People <span class="title">girlAge</span><span class="params">(@PathVariable(<span class="string">"id"</span>)</span> Integer id) <span class="keyword">throws</span>  Exception</span>&#123;</span><br><span class="line">    <span class="keyword">return</span>  peopleService.girlAge(id);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>运行结果：<br><img src="http://p37r4tmp8.bkt.clouddn.com/blog/180907/DCjc0dj3ek.png?imageslim" alt="mark"><br>发现我们上面刚约束好的返回结果的格式又乱了，那是因为我们直接抛异常，并没有捕获，需要加一个捕获的类；</p>
+<p>2：捕获异常:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//该类用来捕获异常，有异常的时候也可以返回我们约束的结果</span></span><br><span class="line"><span class="meta">@ControllerAdvice</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ExceptionHanler</span> </span>&#123;</span><br><span class="line">    <span class="meta">@ExceptionHandler</span>(value = Exception.class)</span><br><span class="line">    <span class="meta">@ResponseBody</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Result <span class="title">handler</span><span class="params">(Exception e)</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> ResultUtil.generateFalseResult(<span class="string">"100"</span>,e.getMessage());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>异常捕获之后，返回的结果正是我们想要的结构：<br><img src="http://p37r4tmp8.bkt.clouddn.com/blog/180907/Bb7gjI0ife.png?imageslim" alt="mark"></p>
+<p>3：自定义异常<br>由于直接抛出Exception异常的话，只有message信息可以填写，code是无法填写的，所以我们需要自定义异常，对比code和message都要写；<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//自定义异常继承的是RuntimeException</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PeopleException</span> <span class="keyword">extends</span> <span class="title">RuntimeException</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">long</span> serialVersionUID = <span class="number">3801044071301792358L</span>;</span><br><span class="line">    <span class="keyword">private</span> String code;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">PeopleException</span><span class="params">(String code,String message)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>(message);</span><br><span class="line">        <span class="keyword">this</span>.code = code;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">PeopleException</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getCode</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> code;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setCode</span><span class="params">(String code)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.code = code;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//该类用来捕获异常，有异常的时候也可以返回我们约束的结果</span></span><br><span class="line"><span class="meta">@ControllerAdvice</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ExceptionHanler</span> </span>&#123;</span><br><span class="line">    <span class="meta">@ExceptionHandler</span>(value = Exception.class)</span><br><span class="line">    <span class="meta">@ResponseBody</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Result <span class="title">handler</span><span class="params">(Exception e)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(e <span class="keyword">instanceof</span> PeopleException)&#123;</span><br><span class="line">            PeopleException peopleException = (PeopleException)e;</span><br><span class="line">            <span class="keyword">return</span> ResultUtil.generateFalseResult(peopleException.getCode(),peopleException.getMessage());</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ResultUtil.generateFalseResult(<span class="string">"-1"</span>,<span class="string">"未知错误"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//service</span></span><br><span class="line"> <span class="function"><span class="keyword">public</span> People <span class="title">girlAge</span><span class="params">(Integer id)</span> <span class="keyword">throws</span> Exception</span>&#123;</span><br><span class="line">        People people = peopleRepository.findOne(id);</span><br><span class="line">        Integer age = people.getAge();</span><br><span class="line">        <span class="keyword">if</span>(age&lt;<span class="number">10</span>)&#123;</span><br><span class="line">            <span class="comment">//直接将信息放异常里即可</span></span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> PeopleException(CodeEnum.SCHOOL_10.getCode(),CodeEnum.SCHOOL_10.getMessage());</span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span>(age&gt;<span class="number">10</span> &amp;&amp; age&lt;<span class="number">16</span>)&#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> PeopleException(CodeEnum.MIDDLE_10AND16.getCode(),CodeEnum.MIDDLE_10AND16.getMessage());</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> people;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>运行结果：<br>id不存在的时候会提示未知错误：<br><img src="http://p37r4tmp8.bkt.clouddn.com/blog/180907/E9J961Ad9h.png?imageslim" alt="mark"><br>年龄大于10小于16<br><img src="http://p37r4tmp8.bkt.clouddn.com/blog/180907/HFa9Ed9k1f.png?imageslim" alt="mark"><br>年龄小于10<br><img src="http://p37r4tmp8.bkt.clouddn.com/blog/180907/2m9aIfa8bh.png?imageslim" alt="mark"></p>
+<h2 id="单元测试"><a href="#单元测试" class="headerlink" title="单元测试"></a>单元测试</h2><p>直接在方法上这样操作就能自动生成测试的包和类：<br><img src="http://p37r4tmp8.bkt.clouddn.com/blog/180907/k779E4C1bf.png?imageslim" alt="mark"></p>
+<ul>
+<li>测试service<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@SpringBootTest</span></span><br><span class="line"><span class="meta">@RunWith</span>(SpringRunner.class)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PeopleServiceTest</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> PeopleService peopleService;</span><br><span class="line">    <span class="comment">//单元测试service中的findById方法</span></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">findById</span><span class="params">()</span></span>&#123;</span><br><span class="line">        People people = peopleService.findById(<span class="number">2</span>);</span><br><span class="line">        <span class="comment">//使用断言进行测试</span></span><br><span class="line">        Assert.assertEquals(<span class="keyword">new</span> String(<span class="string">"臭臭"</span>),people.getName());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>由于Id为2的数据的名称是臭臭臭v，所以用“臭臭”匹配不到，测试结果为：<br><img src="http://p37r4tmp8.bkt.clouddn.com/blog/180907/8eeaIc3GDL.png?imageslim" alt="mark"></p>
+<ul>
+<li>测试controller<br>测试controller还需要加一个注解：@AutoConfigureMockMvc<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RunWith</span>(SpringRunner.class)</span><br><span class="line"><span class="meta">@SpringBootTest</span></span><br><span class="line"><span class="meta">@AutoConfigureMockMvc</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo2ControllerTest</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> MockMvc mockMvc;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">findById</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        mockMvc.perform(MockMvcRequestBuilders.get(<span class="string">"/findById/2"</span>)).</span><br><span class="line">                andExpect(MockMvcResultMatchers.status().isOk()).</span><br><span class="line">                andExpect(MockMvcResultMatchers.content().string(<span class="string">"惺惺惜惺惺"</span>));;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>运行结果：<br><img src="http://p37r4tmp8.bkt.clouddn.com/blog/180907/cJfGeIi9jI.png?imageslim" alt="mark"></p>
+<h2 id="源码下载"><a href="#源码下载" class="headerlink" title="源码下载"></a>源码下载</h2><p>下面是SpringBoot入门和SpringBoot进阶的源码下载：<br><a href="https://gitee.com/yhtt2/SpringBootDemo1" target="_blank" rel="noopener">点我下载</a></p>
+</section>
+    <!-- Tags START -->
+    
+      <div class="tags">
+        <span>Tags:</span>
+        
+  <a href="/tags#java" >
+    <span class="tag-code">java</span>
+  </a>
+
+  <a href="/tags#SpringBoot" >
+    <span class="tag-code">SpringBoot</span>
+  </a>
+
+      </div>
+    
+    <!-- Tags END -->
+    <!-- 打赏 START -->
+    
+    <!-- 打赏 END -->
+    <!-- 二维码 START -->
+    
+    <!-- 二维码 END -->
+    
+      <!-- No Comment -->
+    
+  </article>
+  <!-- Article END -->
+  <!-- Catalog START -->
+  
+  <!-- Catalog END -->
+</main>
+
+<script>
+  (function () {
+    var url = 'http://yoursite.com/SpringBoot进阶/';
+    var banner = ''
+    if (banner !== '' && banner !== 'undefined' && banner !== 'null') {
+      $('#article-banner').css({
+        'background-image': 'url(' + banner + ')'
+      })
+    } else {
+      $('#article-banner').geopattern(url)
+    }
+    $('.header').removeClass('fixed-header')
+
+     // error image
+    $(".markdown-content img").on('error', function() {
+      $(this).attr('src', 'http://file.muyutech.com/error-img.png')
+      $(this).css({
+        'cursor': 'default'
+      })
+    })
+
+    // zoom image
+    $(".markdown-content img").on('click', function() {
+      var src = $(this).attr('src')
+      if (src !== 'http://file.muyutech.com/error-img.png') {
+        var imageW = $(this).width()
+        var imageH = $(this).height()
+        
+        var zoom = ($(window).width() * 0.95 / imageW).toFixed(2)
+        zoom = zoom < 1 ? 1 : zoom
+        zoom = zoom > 2 ? 2 : zoom
+        var transY = (($(window).height() - imageH) / 2).toFixed(2)
+
+        $('body').append('<div class="image-view-wrap"><div class="image-view-inner"><img src="'+ src +'" /></div></div>')
+        $('.image-view-wrap').addClass('wrap-active')
+        $('.image-view-wrap img').css({
+          'width': `${imageW}`,
+          'transform': `translate3d(0, ${transY}px, 0) scale3d(${zoom}, ${zoom}, 1)`
+        })
+        $('html').css('overflow', 'hidden')
+
+        $('.image-view-wrap').on('click', function() {
+          $(this).remove()
+          $('html').attr('style', '')
+        })
+      }
+    })
+
+    // qrcode
+    var qr = new QRious({
+      element: document.getElementById('share-qrcode'),
+      value: document.location.href
+    });
+
+    // gitment
+    var gitmentConfig = "yanm1ng";
+    if (gitmentConfig !== 'undefined') {
+      var gitment = new Gitment({
+        id: "SpringBoot进阶",
+        owner: "yanm1ng",
+        repo: "yanm1ng.github.io",
+        oauth: {
+          client_id: "0f87e490e00ee3fd87ef",
+          client_secret: "4a9d2b148e7971c2201ad12131ce8bf8159ccd2e"
+        },
+        theme: {
+          render(state, instance) {
+            const container = document.createElement('div')
+            container.lang = "en-US"
+            container.className = 'gitment-container gitment-root-container'
+            container.appendChild(instance.renderHeader(state, instance))
+            container.appendChild(instance.renderEditor(state, instance))
+            container.appendChild(instance.renderComments(state, instance))
+            container.appendChild(instance.renderFooter(state, instance))
+            return container;
+          }
+        }
+      })
+      gitment.render(document.getElementById('comments'))
+    }
+  })();
+</script>
+
+    <div class="scroll-top">
+  <span class="arrow-icon"></span>
+</div>
+    <footer class="app-footer">
+  <p class="copyright">
+    &copy; 2018 | Proudly powered by <a href="https://hexo.io" target="_blank">Hexo</a>
+    <br>
+    Theme by <a href="https://github.com/yanm1ng">yanm1ng</a>
+  </p>
+</footer>
+
+<script>
+  function async(u, c) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+</script>
+<script>
+  async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+    FastClick.attach(document.body);
+  })
+</script>
+
+<script>
+  var hasLine = 'true';
+  async("//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js", function(){
+    $('figure pre').each(function(i, block) {
+      var figure = $(this).parents('figure');
+      if (hasLine === 'false') {
+        figure.find('.gutter').hide();
+      }
+      var lang = figure.attr('class').split(' ')[1] || 'code';
+      var codeHtml = $(this).html();
+      var codeTag = document.createElement('code');
+      codeTag.className = lang;
+      codeTag.innerHTML = codeHtml;
+      $(this).attr('class', '').empty().html(codeTag);
+      figure.attr('data-lang', lang.toUpperCase());
+      hljs.highlightBlock(block);
+    });
+  })
+</script>
+<!-- Baidu Tongji -->
+
+<script src="/js/script.js"></script>
+  </body>
+</html>
